@@ -1,0 +1,36 @@
+<style>
+  .kc-page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 60px 20px;
+  }
+  .kc-page h1 {
+    font-family: var(--kc-font-heading);
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    margin-bottom: 24px;
+  }
+  .kc-page .rte {
+    font-size: 18px;
+    line-height: 1.7;
+    color: var(--kc-black);
+  }
+  .kc-page .rte p { margin-bottom: 1em; }
+  .kc-page .rte h2, .kc-page .rte h3 { margin-top: 1.5em; margin-bottom: 0.5em; }
+  .kc-page .rte ul, .kc-page .rte ol { padding-left: 1.5em; margin-bottom: 1em; }
+  .kc-page .rte img { border-radius: var(--kc-radius); margin: 1em 0; }
+</style>
+
+<div class="kc-page">
+  <h1>{{ page.title }}</h1>
+  <div class="rte">
+    {{ page.content }}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Page content",
+  "settings": [],
+  "templates": ["page"]
+}
+{% endschema %}

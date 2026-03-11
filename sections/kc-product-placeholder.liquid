@@ -1,0 +1,29 @@
+<style>
+  .kc-product-placeholder {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 60px 20px;
+    text-align: center;
+  }
+  .kc-product-placeholder h1 {
+    font-family: var(--kc-font-heading);
+    margin-bottom: 16px;
+  }
+  .kc-product-placeholder p {
+    color: var(--kc-gray);
+    font-size: 18px;
+  }
+</style>
+
+<div class="kc-product-placeholder">
+  <h1>{{ product.title }}</h1>
+  <p>Product page coming soon.</p>
+</div>
+
+{% schema %}
+{
+  "name": "Product placeholder",
+  "settings": [],
+  "templates": ["product"]
+}
+{% endschema %}
