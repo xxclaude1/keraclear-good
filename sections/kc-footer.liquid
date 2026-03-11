@@ -1,0 +1,158 @@
+<style>
+  .kc-footer {
+    background: var(--kc-black);
+    color: #ccc;
+    padding: 60px 0 24px;
+  }
+  .kc-footer__inner {
+    max-width: var(--kc-max-width);
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  .kc-footer__grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 40px;
+  }
+  .kc-footer__brand-name {
+    font-family: var(--kc-font-heading);
+    font-size: 24px;
+    color: #fff;
+    margin-bottom: 12px;
+  }
+  .kc-footer__brand-desc {
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+  .kc-footer__heading {
+    font-family: var(--kc-font-body);
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #fff;
+    margin-bottom: 16px;
+  }
+  .kc-footer__links {
+    list-style: none;
+    padding: 0;
+  }
+  .kc-footer__links li { margin-bottom: 10px; }
+  .kc-footer__links a {
+    color: #aaa;
+    font-size: 15px;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .kc-footer__links a:hover { color: #fff; }
+  .kc-footer__bottom {
+    border-top: 1px solid #333;
+    padding-top: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 14px;
+  }
+  .kc-footer__badges {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    font-size: 13px;
+    color: #888;
+  }
+  @media (max-width: 768px) {
+    .kc-footer__grid {
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
+  }
+</style>
+
+<footer class="kc-footer">
+  <div class="kc-footer__inner">
+    <div class="kc-footer__grid">
+      <div>
+        <div class="kc-footer__brand-name">{{ section.settings.brand_name }}</div>
+        <p class="kc-footer__brand-desc">{{ section.settings.brand_description }}</p>
+      </div>
+
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'column' -%}
+          <div>
+            <div class="kc-footer__heading">{{ block.settings.heading }}</div>
+            <ul class="kc-footer__links">
+              {%- if block.settings.link_1_label != blank -%}<li><a href="{{ block.settings.link_1_url }}">{{ block.settings.link_1_label }}</a></li>{%- endif -%}
+              {%- if block.settings.link_2_label != blank -%}<li><a href="{{ block.settings.link_2_url }}">{{ block.settings.link_2_label }}</a></li>{%- endif -%}
+              {%- if block.settings.link_3_label != blank -%}<li><a href="{{ block.settings.link_3_url }}">{{ block.settings.link_3_label }}</a></li>{%- endif -%}
+              {%- if block.settings.link_4_label != blank -%}<li><a href="{{ block.settings.link_4_url }}">{{ block.settings.link_4_label }}</a></li>{%- endif -%}
+              {%- if block.settings.link_5_label != blank -%}<li><a href="{{ block.settings.link_5_url }}">{{ block.settings.link_5_label }}</a></li>{%- endif -%}
+            </ul>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+    <div class="kc-footer__bottom">
+      <span>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. All rights reserved.</span>
+      <div class="kc-footer__badges">
+        <span>🔒 SSL Secured</span>
+        <span>FDA Registered Facility</span>
+        <span>Made in USA</span>
+      </div>
+    </div>
+
+    {%- if section.settings.disclaimer != blank -%}
+      <p style="font-size:12px;color:#666;margin-top:20px;line-height:1.5;">{{ section.settings.disclaimer }}</p>
+    {%- endif -%}
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "class": "kc-footer-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "brand_name",
+      "label": "Brand name",
+      "default": "KeraClear"
+    },
+    {
+      "type": "textarea",
+      "id": "brand_description",
+      "label": "Brand description",
+      "default": "Doctor-formulated nail health serum that penetrates through the nail bed to fight fungus at its source."
+    },
+    {
+      "type": "textarea",
+      "id": "disclaimer",
+      "label": "Legal disclaimer",
+      "default": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease. Individual results may vary."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "column",
+      "name": "Link column",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Column heading", "default": "Links" },
+        { "type": "text", "id": "link_1_label", "label": "Link 1 label" },
+        { "type": "url", "id": "link_1_url", "label": "Link 1 URL" },
+        { "type": "text", "id": "link_2_label", "label": "Link 2 label" },
+        { "type": "url", "id": "link_2_url", "label": "Link 2 URL" },
+        { "type": "text", "id": "link_3_label", "label": "Link 3 label" },
+        { "type": "url", "id": "link_3_url", "label": "Link 3 URL" },
+        { "type": "text", "id": "link_4_label", "label": "Link 4 label" },
+        { "type": "url", "id": "link_4_url", "label": "Link 4 URL" },
+        { "type": "text", "id": "link_5_label", "label": "Link 5 label" },
+        { "type": "url", "id": "link_5_url", "label": "Link 5 URL" }
+      ]
+    }
+  ]
+}
+{% endschema %}

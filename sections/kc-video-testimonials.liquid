@@ -1,0 +1,229 @@
+<style>
+  .kc-videos {
+    padding: 60px 0;
+    background: #fff;
+  }
+  .kc-videos__inner {
+    max-width: var(--kc-max-width);
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  .kc-videos__heading {
+    text-align: center;
+    margin-bottom: 12px;
+    font-family: var(--kc-font-heading);
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+  }
+  .kc-videos__subheading {
+    text-align: center;
+    color: var(--kc-gray);
+    font-size: 18px;
+    margin-bottom: 40px;
+  }
+  .kc-videos__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .kc-video-card {
+    border-radius: var(--kc-radius);
+    overflow: hidden;
+    box-shadow: var(--kc-shadow);
+    background: #fff;
+  }
+  .kc-video-card__embed {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    background: #000;
+  }
+  .kc-video-card__embed iframe,
+  .kc-video-card__embed video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+  .kc-video-card__thumb {
+    position: relative;
+    cursor: pointer;
+  }
+  .kc-video-card__thumb img {
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    display: block;
+  }
+  .kc-video-card__play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 56px;
+    height: 56px;
+    background: rgba(13, 115, 119, 0.9);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .kc-video-card__play::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-left: 16px solid #fff;
+    margin-left: 3px;
+  }
+  .kc-video-card__info {
+    padding: 16px;
+  }
+  .kc-video-card__name {
+    font-weight: 600;
+    font-size: 16px;
+    margin-bottom: 4px;
+  }
+  .kc-video-card__caption {
+    font-size: 14px;
+    color: var(--kc-gray);
+  }
+  @media (max-width: 768px) {
+    .kc-videos__grid {
+      grid-template-columns: 1fr;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+  }
+</style>
+
+<section class="kc-videos" id="testimonials">
+  <div class="kc-videos__inner">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="kc-videos__heading">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+    {%- if section.settings.subheading != blank -%}
+      <p class="kc-videos__subheading">{{ section.settings.subheading }}</p>
+    {%- endif -%}
+
+    <div class="kc-videos__grid">
+      {%- for block in section.blocks -%}
+        <div class="kc-video-card" {{ block.shopify_attributes }}>
+          {%- if block.settings.video_url != blank -%}
+            <div class="kc-video-card__embed">
+              {%- if block.settings.video_url contains 'youtube' or block.settings.video_url contains 'youtu.be' -%}
+                {%- assign yt_id = block.settings.video_url | split: 'v=' | last | split: '&' | first -%}
+                {%- if block.settings.video_url contains 'youtu.be' -%}
+                  {%- assign yt_id = block.settings.video_url | split: 'youtu.be/' | last | split: '?' | first -%}
+                {%- endif -%}
+                <iframe src="https://www.youtube.com/embed/{{ yt_id }}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+              {%- else -%}
+                <video controls preload="metadata">
+                  <source src="{{ block.settings.video_url }}" type="video/mp4">
+                </video>
+              {%- endif -%}
+            </div>
+          {%- elsif block.settings.thumbnail != blank -%}
+            <div class="kc-video-card__thumb">
+              <img src="{{ block.settings.thumbnail | image_url: width: 600 }}" alt="{{ block.settings.name }}" loading="lazy">
+              <div class="kc-video-card__play"></div>
+            </div>
+          {%- else -%}
+            <div style="aspect-ratio:16/9;background:var(--kc-teal-light);display:flex;align-items:center;justify-content:center;color:var(--kc-gray);font-size:14px;">
+              Video thumbnail
+            </div>
+          {%- endif -%}
+          <div class="kc-video-card__info">
+            {%- if block.settings.name != blank -%}
+              <div class="kc-video-card__name">{{ block.settings.name }}</div>
+            {%- endif -%}
+            {%- if block.settings.caption != blank -%}
+              <div class="kc-video-card__caption">{{ block.settings.caption }}</div>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Video testimonials",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Hear From Real Customers"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Watch their stories of transformation"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "video",
+      "name": "Video",
+      "settings": [
+        {
+          "type": "text",
+          "id": "video_url",
+          "label": "Video URL (YouTube or direct MP4)"
+        },
+        {
+          "type": "image_picker",
+          "id": "thumbnail",
+          "label": "Thumbnail image (if no video URL)"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Customer name",
+          "default": "Customer Name"
+        },
+        {
+          "type": "text",
+          "id": "caption",
+          "label": "Caption",
+          "default": "Clear nails after 90 days"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Video testimonials",
+      "blocks": [
+        {
+          "type": "video",
+          "settings": {
+            "name": "Robert M.",
+            "caption": "Clear nails after 90 days of KeraClear"
+          }
+        },
+        {
+          "type": "video",
+          "settings": {
+            "name": "Patricia K.",
+            "caption": "From embarrassed to confident in 60 days"
+          }
+        },
+        {
+          "type": "video",
+          "settings": {
+            "name": "David P.",
+            "caption": "Pharmacist shares his honest review"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

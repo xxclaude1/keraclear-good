@@ -1,0 +1,422 @@
+<style>
+  .kc-hero {
+    background: {{ section.settings.bg_color }};
+    position: relative;
+    overflow: hidden;
+  }
+
+  .kc-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+      radial-gradient(ellipse at 20% 80%, rgba(13, 115, 119, 0.08) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 20%, rgba(200, 169, 81, 0.06) 0%, transparent 50%),
+      linear-gradient(180deg, rgba(13, 115, 119, 0.03) 0%, rgba(255, 255, 255, 0) 100%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .kc-hero__inner {
+    max-width: var(--kc-max-width, 1280px);
+    margin: 0 auto;
+    padding: 80px 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+    min-height: 560px;
+  }
+
+  .kc-hero__content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .kc-hero__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--kc-font-body, 'Inter', sans-serif);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: {{ section.settings.eyebrow_color }};
+    padding: 6px 16px;
+    background: rgba(13, 115, 119, 0.08);
+    border: 1px solid rgba(13, 115, 119, 0.15);
+    border-radius: 100px;
+    width: fit-content;
+  }
+
+  .kc-hero__eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: {{ section.settings.eyebrow_color }};
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .kc-hero__heading {
+    font-family: var(--kc-font-heading, 'Playfair Display', serif);
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 700;
+    line-height: 1.1;
+    color: {{ section.settings.heading_color }};
+    margin: 0;
+    letter-spacing: -0.02em;
+  }
+
+  .kc-hero__heading em {
+    font-style: normal;
+    color: var(--kc-gold, #C8A951);
+    position: relative;
+  }
+
+  .kc-hero__subtext {
+    font-family: var(--kc-font-body, 'Inter', sans-serif);
+    font-size: 18px;
+    line-height: 1.7;
+    color: {{ section.settings.subtext_color }};
+    margin: 0;
+    max-width: 520px;
+  }
+
+  .kc-hero__cta-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 8px;
+  }
+
+  .kc-hero__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-family: var(--kc-font-body, 'Inter', sans-serif);
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    padding: 18px 40px;
+    background: {{ section.settings.btn_bg }};
+    color: {{ section.settings.btn_text }};
+    border: none;
+    border-radius: var(--kc-radius, 8px);
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 16px rgba(13, 115, 119, 0.3), 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: fit-content;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .kc-hero__btn::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .kc-hero__btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(13, 115, 119, 0.4), 0 4px 8px rgba(0, 0, 0, 0.12);
+  }
+
+  .kc-hero__btn:active {
+    transform: translateY(0);
+  }
+
+  .kc-hero__btn svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+  }
+
+  .kc-hero__btn:hover svg {
+    transform: translateX(3px);
+  }
+
+  .kc-hero__disclaimer {
+    font-family: var(--kc-font-body, 'Inter', sans-serif);
+    font-size: 14px;
+    color: {{ section.settings.disclaimer_color }};
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 16px;
+    line-height: 1.6;
+  }
+
+  .kc-hero__media {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .kc-hero__media::before {
+    content: '';
+    position: absolute;
+    width: 85%;
+    height: 85%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(13, 115, 119, 0.06) 0%, transparent 70%);
+    z-index: 0;
+  }
+
+  .kc-hero__img {
+    position: relative;
+    z-index: 1;
+    max-width: 100%;
+    height: auto;
+    max-height: 520px;
+    object-fit: contain;
+    filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.1));
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .kc-hero__media:hover .kc-hero__img {
+    transform: scale(1.03) translateY(-4px);
+  }
+
+  /* Tablet */
+  @media (max-width: 1024px) {
+    .kc-hero__inner {
+      padding: 60px 32px;
+      gap: 40px;
+      min-height: 480px;
+    }
+
+    .kc-hero__subtext {
+      font-size: 16px;
+    }
+  }
+
+  /* Mobile */
+  @media (max-width: 768px) {
+    .kc-hero__inner {
+      grid-template-columns: 1fr;
+      padding: 40px 20px 48px;
+      gap: 32px;
+      text-align: center;
+      min-height: auto;
+    }
+
+    .kc-hero__media {
+      order: -1;
+    }
+
+    .kc-hero__img {
+      max-height: 320px;
+    }
+
+    .kc-hero__eyebrow {
+      margin: 0 auto;
+    }
+
+    .kc-hero__content {
+      align-items: center;
+    }
+
+    .kc-hero__subtext {
+      font-size: 15px;
+      max-width: 480px;
+    }
+
+    .kc-hero__btn {
+      width: 100%;
+      max-width: 380px;
+      padding: 16px 32px;
+    }
+
+    .kc-hero__disclaimer {
+      justify-content: center;
+      font-size: 13px;
+    }
+
+    .kc-hero__heading {
+      font-size: clamp(30px, 7vw, 42px);
+    }
+  }
+</style>
+
+<section class="kc-hero" data-section-id="{{ section.id }}">
+  <div class="kc-hero__inner">
+    <div class="kc-hero__content">
+      {%- if section.settings.eyebrow != blank -%}
+        <span class="kc-hero__eyebrow">{{ section.settings.eyebrow }}</span>
+      {%- endif -%}
+
+      {%- if section.settings.heading != blank -%}
+        <h1 class="kc-hero__heading">{{ section.settings.heading }}</h1>
+      {%- endif -%}
+
+      {%- if section.settings.subtext != blank -%}
+        <p class="kc-hero__subtext">{{ section.settings.subtext }}</p>
+      {%- endif -%}
+
+      <div class="kc-hero__cta-wrap">
+        {%- if section.settings.btn_text != blank -%}
+          <a
+            href="{{ section.settings.btn_url | default: '#' }}"
+            class="kc-hero__btn"
+          >
+            {{ section.settings.btn_text }}
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+        {%- endif -%}
+
+        {%- if section.settings.disclaimer != blank -%}
+          <p class="kc-hero__disclaimer">{{ section.settings.disclaimer }}</p>
+        {%- endif -%}
+      </div>
+    </div>
+
+    <div class="kc-hero__media">
+      {%- if section.settings.image != blank -%}
+        <img
+          class="kc-hero__img"
+          src="{{ section.settings.image | image_url: width: 900 }}"
+          srcset="
+            {{ section.settings.image | image_url: width: 450 }} 450w,
+            {{ section.settings.image | image_url: width: 600 }} 600w,
+            {{ section.settings.image | image_url: width: 900 }} 900w
+          "
+          sizes="(max-width: 768px) 90vw, 45vw"
+          alt="{{ section.settings.image.alt | escape }}"
+          width="{{ section.settings.image.width }}"
+          height="{{ section.settings.image.height }}"
+          loading="eager"
+          fetchpriority="high"
+        >
+      {%- else -%}
+        {{ 'product-1' | placeholder_svg_tag: 'kc-hero__img' }}
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "KeraClear Hero",
+  "tag": "section",
+  "class": "kc-section-hero",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow text",
+      "default": "Doctor-Formulated Nail Health"
+    },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "<p>Clear, Healthy Nails Start <em>From Within</em></p>"
+    },
+    {
+      "type": "textarea",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "Dr. Langford's clinically-studied antifungal serum penetrates through the nail bed to fight fungus at its source — naturally, safely, and effectively."
+    },
+    {
+      "type": "text",
+      "id": "btn_text",
+      "label": "Button text",
+      "default": "Shop Now — 90 Day Guarantee"
+    },
+    {
+      "type": "url",
+      "id": "btn_url",
+      "label": "Button link"
+    },
+    {
+      "type": "text",
+      "id": "disclaimer",
+      "label": "Disclaimer text",
+      "default": "✓ Free Shipping  ✓ 90-Day Guarantee  ✓ Made in USA"
+    },
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Hero product image"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#F5FAFA"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#0B4F52"
+    },
+    {
+      "type": "color",
+      "id": "eyebrow_color",
+      "label": "Eyebrow color",
+      "default": "#0D7377"
+    },
+    {
+      "type": "color",
+      "id": "subtext_color",
+      "label": "Subtext color",
+      "default": "#4A5568"
+    },
+    {
+      "type": "color",
+      "id": "disclaimer_color",
+      "label": "Disclaimer color",
+      "default": "#6B7280"
+    },
+    {
+      "type": "color",
+      "id": "btn_bg",
+      "label": "Button background",
+      "default": "#0D7377"
+    },
+    {
+      "type": "color",
+      "id": "btn_text",
+      "label": "Button text color",
+      "default": "#FFFFFF"
+    }
+  ],
+  "presets": [
+    {
+      "name": "KeraClear Hero"
+    }
+  ]
+}
+{% endschema %}

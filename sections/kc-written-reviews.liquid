@@ -1,0 +1,460 @@
+{% style %}
+  .kc-written-reviews {
+    padding: 80px 20px;
+    background: var(--kc-teal-light, #E8F4F4);
+  }
+
+  .kc-written-reviews__inner {
+    max-width: var(--kc-max-width, 1200px);
+    margin: 0 auto;
+  }
+
+  .kc-written-reviews__heading {
+    font-family: var(--kc-font-heading, 'Playfair Display', serif);
+    font-size: 42px;
+    font-weight: 700;
+    color: var(--kc-black, #1A1A1A);
+    text-align: center;
+    margin: 0 0 16px 0;
+    line-height: 1.2;
+  }
+
+  .kc-written-reviews__summary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin: 0 0 48px 0;
+    flex-wrap: wrap;
+  }
+
+  .kc-written-reviews__summary-stars {
+    display: flex;
+    gap: 3px;
+  }
+
+  .kc-written-reviews__summary-star {
+    color: var(--kc-gold, #C8A951);
+    font-size: 22px;
+    line-height: 1;
+  }
+
+  .kc-written-reviews__summary-text {
+    font-family: var(--kc-font-body, 'Inter', sans-serif);
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--kc-gray, #6B7280);
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  .kc-written-reviews__summary-text strong {
+    color: var(--kc-black, #1A1A1A);
+    font-weight: 700;
+  }
+
+  .kc-written-reviews__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+  }
+
+  .kc-written-reviews__card {
+    background: var(--kc-white, #FFFFFF);
+    border: 1px solid #E5E7EB;
+    border-radius: var(--kc-radius, 12px);
+    padding: 36px 32px;
+    box-shadow: var(--kc-shadow, 0 4px 24px rgba(13, 115, 119, 0.08));
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .kc-written-reviews__card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 32px rgba(13, 115, 119, 0.12);
+  }
+
+  .kc-written-reviews__card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .kc-written-reviews__stars {
+    display: flex;
+    gap: 3px;
+    flex-shrink: 0;
+  }
+
+  .kc-written-reviews__star {
+    color: var(--kc-gold, #C8A951);
+    font-size: 18px;
+    line-height: 1;
+  }
+
+  .kc-written-reviews__star--empty {
+    color: #D1D5DB;
+  }
+
+  .kc-written-reviews__verified-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: var(--kc-teal-light, #E8F4F4);
+    color: var(--kc-teal, #0D7377);
+    font-family: var(--kc-font-body, 'Inter', sans-serif);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 20px;
+    flex-shrink: 0;
+    line-height: 1;
+  }
+
+  .kc-written-reviews__verified-badge svg {
+    width: 13px;
+    height: 13px;
+    flex-shrink: 0;
+  }
+
+  .kc-written-reviews__title {
+    font-family: var(--kc-font-heading, 'Playfair Display', serif);
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--kc-black, #1A1A1A);
+    margin: 0 0 12px 0;
+    line-height: 1.3;
+  }
+
+  .kc-written-reviews__text {
+    font-family: var(--kc-font-body, 'Inter', sans-serif);
+    font-size: 15px;
+    font-weight: 400;
+    color: var(--kc-gray, #6B7280);
+    line-height: 1.75;
+    margin: 0 0 24px 0;
+    flex-grow: 1;
+  }
+
+  .kc-written-reviews__reviewer {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding-top: 20px;
+    border-top: 1px solid #F3F4F6;
+  }
+
+  .kc-written-reviews__photo {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 2px solid var(--kc-teal-light, #E8F4F4);
+  }
+
+  .kc-written-reviews__avatar-placeholder {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: var(--kc-teal-light, #E8F4F4);
+    color: var(--kc-teal, #0D7377);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--kc-font-heading, 'Playfair Display', serif);
+    font-size: 20px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .kc-written-reviews__reviewer-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .kc-written-reviews__name {
+    font-family: var(--kc-font-body, 'Inter', sans-serif);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--kc-black, #1A1A1A);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .kc-written-reviews__location {
+    font-family: var(--kc-font-body, 'Inter', sans-serif);
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--kc-gray, #6B7280);
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  @media (max-width: 768px) {
+    .kc-written-reviews {
+      padding: 56px 16px;
+    }
+
+    .kc-written-reviews__heading {
+      font-size: 30px;
+      margin-bottom: 12px;
+    }
+
+    .kc-written-reviews__summary {
+      margin-bottom: 36px;
+    }
+
+    .kc-written-reviews__summary-text {
+      font-size: 14px;
+    }
+
+    .kc-written-reviews__grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .kc-written-reviews__card {
+      padding: 28px 24px;
+    }
+
+    .kc-written-reviews__title {
+      font-size: 18px;
+    }
+
+    .kc-written-reviews__text {
+      font-size: 14px;
+    }
+  }
+{% endstyle %}
+
+<section class="kc-written-reviews" id="reviews">
+  <div class="kc-written-reviews__inner">
+    {% if section.settings.heading != blank %}
+      <h2 class="kc-written-reviews__heading">{{ section.settings.heading }}</h2>
+    {% endif %}
+
+    {%- if section.settings.show_summary -%}
+      <div class="kc-written-reviews__summary">
+        <div class="kc-written-reviews__summary-stars" aria-hidden="true">
+          <span class="kc-written-reviews__summary-star">&#9733;</span>
+          <span class="kc-written-reviews__summary-star">&#9733;</span>
+          <span class="kc-written-reviews__summary-star">&#9733;</span>
+          <span class="kc-written-reviews__summary-star">&#9733;</span>
+          <span class="kc-written-reviews__summary-star">&#9733;</span>
+        </div>
+        <p class="kc-written-reviews__summary-text">
+          <strong>{{ section.settings.summary_rating }}</strong> out of 5 based on <strong>{{ section.settings.summary_count }}</strong> reviews
+        </p>
+      </div>
+    {%- endif -%}
+
+    {% if section.blocks.size > 0 %}
+      <div class="kc-written-reviews__grid">
+        {% for block in section.blocks %}
+          <div class="kc-written-reviews__card" {{ block.shopify_attributes }}>
+            <div class="kc-written-reviews__card-header">
+              <div class="kc-written-reviews__stars" aria-label="{{ block.settings.stars }} out of 5 stars">
+                {%- for i in (1..5) -%}
+                  {%- if i <= block.settings.stars -%}
+                    <span class="kc-written-reviews__star" aria-hidden="true">&#9733;</span>
+                  {%- else -%}
+                    <span class="kc-written-reviews__star kc-written-reviews__star--empty" aria-hidden="true">&#9733;</span>
+                  {%- endif -%}
+                {%- endfor -%}
+              </div>
+
+              {%- if block.settings.verified -%}
+                <span class="kc-written-reviews__verified-badge">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                  Verified Purchase
+                </span>
+              {%- endif -%}
+            </div>
+
+            {%- if block.settings.review_title != blank -%}
+              <h3 class="kc-written-reviews__title">&ldquo;{{ block.settings.review_title }}&rdquo;</h3>
+            {%- endif -%}
+
+            {%- if block.settings.review_text != blank -%}
+              <p class="kc-written-reviews__text">{{ block.settings.review_text }}</p>
+            {%- endif -%}
+
+            <div class="kc-written-reviews__reviewer">
+              {%- if block.settings.reviewer_photo != blank -%}
+                <img
+                  class="kc-written-reviews__photo"
+                  src="{{ block.settings.reviewer_photo | image_url: width: 104 }}"
+                  alt="{{ block.settings.reviewer_name | escape }}"
+                  width="52"
+                  height="52"
+                  loading="lazy"
+                >
+              {%- else -%}
+                <div class="kc-written-reviews__avatar-placeholder">
+                  {{ block.settings.reviewer_name | slice: 0 | upcase }}
+                </div>
+              {%- endif -%}
+
+              <div class="kc-written-reviews__reviewer-info">
+                {%- if block.settings.reviewer_name != blank -%}
+                  <p class="kc-written-reviews__name">{{ block.settings.reviewer_name }}</p>
+                {%- endif -%}
+                {%- if block.settings.reviewer_location != blank -%}
+                  <p class="kc-written-reviews__location">{{ block.settings.reviewer_location }}</p>
+                {%- endif -%}
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "KC Written Reviews",
+  "tag": "section",
+  "class": "kc-written-reviews-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Section Heading",
+      "default": "What Our Customers Say"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_summary",
+      "label": "Show summary rating bar",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "summary_rating",
+      "label": "Summary Rating",
+      "default": "4.9"
+    },
+    {
+      "type": "text",
+      "id": "summary_count",
+      "label": "Total Review Count",
+      "default": "12,000+"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        {
+          "type": "range",
+          "id": "stars",
+          "label": "Star Rating",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 5
+        },
+        {
+          "type": "text",
+          "id": "review_title",
+          "label": "Review Title",
+          "default": "Great product!"
+        },
+        {
+          "type": "textarea",
+          "id": "review_text",
+          "label": "Review Text",
+          "default": "Write the full review here."
+        },
+        {
+          "type": "text",
+          "id": "reviewer_name",
+          "label": "Reviewer Name",
+          "default": "Customer"
+        },
+        {
+          "type": "text",
+          "id": "reviewer_location",
+          "label": "Reviewer Location",
+          "default": "United States"
+        },
+        {
+          "type": "image_picker",
+          "id": "reviewer_photo",
+          "label": "Reviewer Photo (optional)"
+        },
+        {
+          "type": "checkbox",
+          "id": "verified",
+          "label": "Show Verified Badge",
+          "default": true
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "KC Written Reviews",
+      "settings": {
+        "heading": "What Our Customers Say",
+        "show_summary": true,
+        "summary_rating": "4.9",
+        "summary_count": "12,000+"
+      },
+      "blocks": [
+        {
+          "type": "review",
+          "settings": {
+            "stars": 5,
+            "review_title": "Life-changing product",
+            "review_text": "I've dealt with nail fungus for over 10 years. I tried prescription pills that made me nauseous, tea tree oil that did nothing, and Vicks that my doctor laughed at. After 2 months of KeraClear, I have clear nail growth for the first time in a decade.",
+            "reviewer_name": "Margaret S.",
+            "reviewer_location": "Dallas, TX",
+            "verified": true
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "stars": 5,
+            "review_title": "My confidence is back",
+            "review_text": "I stopped wearing sandals 3 years ago. My husband found KeraClear and I figured I had nothing to lose with the guarantee. 6 weeks in and I ordered new sandals. Thank you!",
+            "reviewer_name": "Linda R.",
+            "reviewer_location": "Miami, FL",
+            "verified": true
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "stars": 5,
+            "review_title": "Skeptical but converted",
+            "review_text": "I'm a pharmacist so I was very skeptical of any OTC nail treatment. The biofilm penetration approach actually makes scientific sense though. I'm impressed with my results after 8 weeks.",
+            "reviewer_name": "David P.",
+            "reviewer_location": "Seattle, WA",
+            "verified": true
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "stars": 5,
+            "review_title": "Worth every penny",
+            "review_text": "The 6-bottle deal is the way to go. I'm on month 4 and my nails look better than they have in years. My podiatrist even asked what I was using.",
+            "reviewer_name": "Gary T.",
+            "reviewer_location": "Denver, CO",
+            "verified": true
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

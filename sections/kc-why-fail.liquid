@@ -1,0 +1,468 @@
+{{ 'section-kc-why-fail' | append: section.id }}
+
+<style>
+  #kc-why-fail-{{ section.id }} {
+    padding: 80px 20px;
+    background-color: #F9FAFB;
+  }
+
+  #kc-why-fail-{{ section.id }} .kc-fail__container {
+    max-width: var(--kc-max-width, 1200px);
+    margin: 0 auto;
+  }
+
+  #kc-why-fail-{{ section.id }} .kc-fail__header {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+
+  #kc-why-fail-{{ section.id }} .kc-fail__heading {
+    font-family: var(--kc-font-heading, 'Playfair Display', serif);
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--kc-teal-dark, #095557);
+    margin: 0 0 16px;
+    line-height: 1.2;
+  }
+
+  #kc-why-fail-{{ section.id }} .kc-fail__heading span {
+    color: var(--kc-gold, #C8A951);
+  }
+
+  #kc-why-fail-{{ section.id }} .kc-fail__subheading {
+    font-family: var(--kc-font-body, 'Inter', sans-serif);
+    font-size: 1.125rem;
+    color: var(--kc-gray, #6B7280);
+    margin: 0;
+    line-height: 1.6;
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  #kc-why-fail-{{ section.id }} .kc-fail__layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+
+  #kc-why-fail-{{ section.id }} .kc-fail__image-wrapper {
+    position: sticky;
+    top: 100px;
+  }
+
+  #kc-why-fail-{{ section.id }} .kc-fail__image {
+    width: 100%;
+    height: auto;
+    border-radius: var(--kc-radius, 12px);
+    box-shadow: var(--kc-shadow, 0 4px 20px rgba(0, 0, 0, 0.08));
+  }
+
+  #kc-why-fail-{{ section.id }} .kc-fail__image-caption {
+    font-family: var(--kc-font-body, 'Inter', sans-serif);
+    font-size: 0.8125rem;
+    color: var(--kc-gray, #6B7280);
+    text-align: center;
+    margin-top: 12px;
+    font-style: italic;
+  }
+
+  #kc-why-fail-{{ section.id }} .kc-fail__no-image .kc-fail__layout {
+    grid-template-columns: 1fr;
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  #kc-why-fail-{{ section.id }} .kc-fail__accordion {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  #kc-why-fail-{{ section.id }} .kc-fail__item {
+    background: #FFFFFF;
+    border-radius: var(--kc-radius, 12px);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    border: 1px solid #E5E7EB;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+
+  #kc-why-fail-{{ section.id }} .kc-fail__item.is-active {
+    box-shadow: 0 4px 16px rgba(13, 115, 119, 0.1);
+    border-color: var(--kc-teal, #0D7377);
+  }
+
+  #kc-why-fail-{{ section.id }} .kc-fail__trigger {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 20px 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    font-family: var(--kc-font-body, 'Inter', sans-serif);
+    font-size: 1.0625rem;
+    font-weight: 600;
+    color: var(--kc-black, #111827);
+    line-height: 1.4;
+    transition: color 0.2s ease;
+  }
+
+  #kc-why-fail-{{ section.id }} .kc-fail__trigger:hover {
+    color: var(--kc-teal, #0D7377);
+  }
+
+  #kc-why-fail-{{ section.id }} .kc-fail__item.is-active .kc-fail__trigger {
+    color: var(--kc-teal, #0D7377);
+  }
+
+  #kc-why-fail-{{ section.id }} .kc-fail__icon {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--kc-teal-light, #E0F2F1);
+    color: var(--kc-teal, #0D7377);
+    transition: transform 0.3s ease, background 0.3s ease;
+  }
+
+  #kc-why-fail-{{ section.id }} .kc-fail__item.is-active .kc-fail__icon {
+    transform: rotate(180deg);
+    background: var(--kc-teal, #0D7377);
+    color: #FFFFFF;
+  }
+
+  #kc-why-fail-{{ section.id }} .kc-fail__icon svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  #kc-why-fail-{{ section.id }} .kc-fail__content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.3s ease;
+  }
+
+  #kc-why-fail-{{ section.id }} .kc-fail__content-inner {
+    padding: 0 24px 24px;
+    font-family: var(--kc-font-body, 'Inter', sans-serif);
+    font-size: 1rem;
+    color: var(--kc-gray, #6B7280);
+    line-height: 1.7;
+  }
+
+  #kc-why-fail-{{ section.id }} .kc-fail__number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--kc-teal-light, #E0F2F1);
+    color: var(--kc-teal, #0D7377);
+    font-family: var(--kc-font-body, 'Inter', sans-serif);
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin-right: 12px;
+    flex-shrink: 0;
+  }
+
+  #kc-why-fail-{{ section.id }} .kc-fail__item.is-active .kc-fail__number {
+    background: var(--kc-teal, #0D7377);
+    color: #FFFFFF;
+  }
+
+  #kc-why-fail-{{ section.id }} .kc-fail__trigger-text {
+    display: flex;
+    align-items: center;
+    flex: 1;
+  }
+
+  @media (max-width: 768px) {
+    #kc-why-fail-{{ section.id }} {
+      padding: 56px 16px;
+    }
+
+    #kc-why-fail-{{ section.id }} .kc-fail__heading {
+      font-size: 1.875rem;
+    }
+
+    #kc-why-fail-{{ section.id }} .kc-fail__subheading {
+      font-size: 1rem;
+    }
+
+    #kc-why-fail-{{ section.id }} .kc-fail__header {
+      margin-bottom: 40px;
+    }
+
+    #kc-why-fail-{{ section.id }} .kc-fail__layout {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+
+    #kc-why-fail-{{ section.id }} .kc-fail__image-wrapper {
+      position: static;
+      order: -1;
+    }
+
+    #kc-why-fail-{{ section.id }} .kc-fail__trigger {
+      padding: 16px 20px;
+      font-size: 1rem;
+    }
+
+    #kc-why-fail-{{ section.id }} .kc-fail__content-inner {
+      padding: 0 20px 20px;
+      font-size: 0.9375rem;
+    }
+  }
+</style>
+
+<section id="kc-why-fail-{{ section.id }}">
+  <div class="kc-fail__container">
+    <div class="kc-fail__header">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="kc-fail__heading">
+          {%- assign heading_parts = section.settings.heading | split: section.settings.highlight_text -%}
+          {%- if section.settings.highlight_text != blank and heading_parts.size > 1 -%}
+            {{ heading_parts[0] }}<span>{{ section.settings.highlight_text }}</span>{{ heading_parts[1] }}
+          {%- else -%}
+            {{ section.settings.heading }}
+          {%- endif -%}
+        </h2>
+      {%- endif -%}
+
+      {%- if section.settings.subheading != blank -%}
+        <p class="kc-fail__subheading">{{ section.settings.subheading }}</p>
+      {%- endif -%}
+    </div>
+
+    <div class="{% if section.settings.section_image == blank %}kc-fail__no-image{% endif %}">
+      <div class="kc-fail__layout">
+        {%- if section.settings.section_image != blank -%}
+          <div class="kc-fail__image-wrapper">
+            <img
+              class="kc-fail__image"
+              src="{{ section.settings.section_image | image_url: width: 800 }}"
+              alt="{{ section.settings.image_alt | default: 'Nail fungus biofilm diagram' | escape }}"
+              width="800"
+              height="{{ 800 | divided_by: section.settings.section_image.aspect_ratio | round }}"
+              loading="lazy"
+            >
+            {%- if section.settings.image_caption != blank -%}
+              <p class="kc-fail__image-caption">{{ section.settings.image_caption }}</p>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+
+        {%- if section.blocks.size > 0 -%}
+          <div class="kc-fail__accordion" role="list">
+            {%- for block in section.blocks -%}
+              <div
+                class="kc-fail__item{% if forloop.first and section.settings.open_first %} is-active{% endif %}"
+                {{ block.shopify_attributes }}
+                role="listitem"
+              >
+                <button
+                  class="kc-fail__trigger"
+                  type="button"
+                  aria-expanded="{% if forloop.first and section.settings.open_first %}true{% else %}false{% endif %}"
+                  aria-controls="kc-fail-content-{{ section.id }}-{{ forloop.index }}"
+                  id="kc-fail-trigger-{{ section.id }}-{{ forloop.index }}"
+                >
+                  <span class="kc-fail__trigger-text">
+                    <span class="kc-fail__number">{{ forloop.index }}</span>
+                    {{ block.settings.title }}
+                  </span>
+                  <span class="kc-fail__icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                  </span>
+                </button>
+                <div
+                  class="kc-fail__content"
+                  id="kc-fail-content-{{ section.id }}-{{ forloop.index }}"
+                  role="region"
+                  aria-labelledby="kc-fail-trigger-{{ section.id }}-{{ forloop.index }}"
+                >
+                  <div class="kc-fail__content-inner">
+                    {{ block.settings.content }}
+                  </div>
+                </div>
+              </div>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  (function() {
+    const section = document.getElementById('kc-why-fail-{{ section.id }}');
+    if (!section) return;
+
+    const items = section.querySelectorAll('.kc-fail__item');
+
+    /* Set initial max-height for any items open by default */
+    items.forEach(function(item) {
+      if (item.classList.contains('is-active')) {
+        const content = item.querySelector('.kc-fail__content');
+        if (content) {
+          content.style.maxHeight = content.scrollHeight + 'px';
+        }
+      }
+    });
+
+    items.forEach(function(item) {
+      const trigger = item.querySelector('.kc-fail__trigger');
+      const content = item.querySelector('.kc-fail__content');
+      if (!trigger || !content) return;
+
+      trigger.addEventListener('click', function() {
+        const isActive = item.classList.contains('is-active');
+
+        /* Close all other items */
+        items.forEach(function(otherItem) {
+          if (otherItem !== item && otherItem.classList.contains('is-active')) {
+            otherItem.classList.remove('is-active');
+            var otherContent = otherItem.querySelector('.kc-fail__content');
+            var otherTrigger = otherItem.querySelector('.kc-fail__trigger');
+            if (otherContent) otherContent.style.maxHeight = '0';
+            if (otherTrigger) otherTrigger.setAttribute('aria-expanded', 'false');
+          }
+        });
+
+        /* Toggle current item */
+        if (isActive) {
+          item.classList.remove('is-active');
+          content.style.maxHeight = '0';
+          trigger.setAttribute('aria-expanded', 'false');
+        } else {
+          item.classList.add('is-active');
+          content.style.maxHeight = content.scrollHeight + 'px';
+          trigger.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "KC Why Treatments Fail",
+  "tag": "section",
+  "class": "kc-why-fail-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Why 87% of Nail Treatments Fail"
+    },
+    {
+      "type": "text",
+      "id": "highlight_text",
+      "label": "Text to highlight in gold (optional)",
+      "default": "87%",
+      "info": "This text within the heading will be displayed in gold."
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Most treatments only address the surface. The real problem lies beneath."
+    },
+    {
+      "type": "image_picker",
+      "id": "section_image",
+      "label": "Section image (biofilm diagram)"
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "Image alt text",
+      "default": "Nail fungus biofilm diagram"
+    },
+    {
+      "type": "text",
+      "id": "image_caption",
+      "label": "Image caption (optional)",
+      "default": "Cross-section: how biofilm shields fungus from treatment"
+    },
+    {
+      "type": "checkbox",
+      "id": "open_first",
+      "label": "Open first item by default",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "accordion_item",
+      "name": "Accordion Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Question / Title",
+          "default": "Accordion title"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Answer / Content",
+          "default": "<p>Accordion content goes here.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "KC Why Treatments Fail",
+      "settings": {
+        "open_first": true
+      },
+      "blocks": [
+        {
+          "type": "accordion_item",
+          "settings": {
+            "title": "Surface treatments can't reach the root",
+            "content": "<p>Topical creams and polishes sit on top of the nail. They never penetrate to where fungus actually lives — beneath the nail bed, protected by a biofilm shield.</p>"
+          }
+        },
+        {
+          "type": "accordion_item",
+          "settings": {
+            "title": "Oral medications come with serious side effects",
+            "content": "<p>Prescription antifungals like terbinafine require liver function monitoring and can cause nausea, headaches, and liver damage. Many doctors won't prescribe them for mild cases.</p>"
+          }
+        },
+        {
+          "type": "accordion_item",
+          "settings": {
+            "title": "The biofilm barrier blocks everything",
+            "content": "<p>Nail fungus creates a protective biofilm — a microscopic shield that blocks 99% of treatments. Without breaking through this barrier first, nothing can reach the fungus.</p>"
+          }
+        },
+        {
+          "type": "accordion_item",
+          "settings": {
+            "title": "Most people quit too early",
+            "content": "<p>Visible nail growth takes 3-6 months. Many treatments show no visible progress for weeks, causing people to give up before the treatment has time to work.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,291 @@
+{
+  "sections": {
+    "hero": {
+      "type": "kc-hero",
+      "settings": {
+        "eyebrow": "Doctor-Formulated Nail Health",
+        "heading": "Clear, Healthy Nails <em>Start From Within</em>",
+        "subtext": "Dr. Langford's clinically-studied antifungal serum penetrates through the nail bed to fight fungus at its source — naturally, safely, and effectively.",
+        "button_text": "Shop Now — 90 Day Guarantee",
+        "disclaimer": "✓ Free Shipping  ✓ 90-Day Guarantee  ✓ Made in USA"
+      }
+    },
+    "trust-bar": {
+      "type": "kc-trust-bar",
+      "settings": {},
+      "blocks": {
+        "badge-1": {
+          "type": "badge",
+          "settings": {
+            "icon": "🔬",
+            "text": "12,000+ Patients Treated"
+          }
+        },
+        "badge-2": {
+          "type": "badge",
+          "settings": {
+            "icon": "👨‍⚕️",
+            "text": "Board-Certified Dermatologist"
+          }
+        },
+        "badge-3": {
+          "type": "badge",
+          "settings": {
+            "icon": "🏭",
+            "text": "FDA Registered Facility"
+          }
+        },
+        "badge-4": {
+          "type": "badge",
+          "settings": {
+            "icon": "✅",
+            "text": "90-Day Money-Back Guarantee"
+          }
+        },
+        "badge-5": {
+          "type": "badge",
+          "settings": {
+            "icon": "🇺🇸",
+            "text": "Made in USA"
+          }
+        }
+      },
+      "block_order": ["badge-1", "badge-2", "badge-3", "badge-4", "badge-5"]
+    },
+    "review-cards": {
+      "type": "kc-review-cards",
+      "settings": {
+        "heading": "Real People, <em>Real Results</em>"
+      },
+      "blocks": {
+        "review-1": {
+          "type": "review",
+          "settings": {
+            "stars": 5,
+            "title": "Finally something that works!",
+            "text": "I've tried everything — pills, creams, even vinegar soaks. After 6 weeks of Keraclear, I could see new clear nail growth. Month 3 now and my nails look better than they have in years.",
+            "name": "Robert M.",
+            "location": "Tampa, FL"
+          }
+        },
+        "review-2": {
+          "type": "review",
+          "settings": {
+            "stars": 5,
+            "title": "Wish I found this sooner",
+            "text": "I was embarrassed to wear sandals for 5 years. Keraclear was the perfect alternative — natural ingredients, easy to apply, and it actually delivered results.",
+            "name": "Patricia K.",
+            "location": "Phoenix, AZ"
+          }
+        },
+        "review-3": {
+          "type": "review",
+          "settings": {
+            "stars": 5,
+            "title": "The best nail treatment I've used",
+            "text": "As a nurse on my feet all day, I was skeptical. But Keraclear's oil formula absorbs so much better than creams. After 8 weeks, the discoloration is almost completely gone.",
+            "name": "Sandra L.",
+            "location": "Chicago, IL"
+          }
+        }
+      },
+      "block_order": ["review-1", "review-2", "review-3"]
+    },
+    "why-fail": {
+      "type": "kc-why-fail",
+      "settings": {
+        "heading": "Why 87% of Nail Treatments Fail"
+      },
+      "blocks": {
+        "item-1": {
+          "type": "accordion_item",
+          "settings": {
+            "title": "Surface treatments can't reach the root",
+            "content": "Topical creams and polishes sit on top of the nail. They never penetrate to where fungus actually lives — beneath the nail bed, protected by a biofilm shield."
+          }
+        },
+        "item-2": {
+          "type": "accordion_item",
+          "settings": {
+            "title": "Oral medications come with serious side effects",
+            "content": "Prescription antifungals like terbinafine require liver function monitoring and can cause nausea, headaches, and liver damage. Many doctors won't prescribe them for mild cases."
+          }
+        },
+        "item-3": {
+          "type": "accordion_item",
+          "settings": {
+            "title": "The biofilm barrier blocks everything",
+            "content": "Nail fungus creates a protective biofilm — a microscopic shield that blocks 99% of treatments. Without breaking through this barrier first, nothing can reach the fungus."
+          }
+        },
+        "item-4": {
+          "type": "accordion_item",
+          "settings": {
+            "title": "Most people quit too early",
+            "content": "Visible nail growth takes 3-6 months. Many treatments show no visible progress for weeks, causing people to give up before the treatment has time to work."
+          }
+        }
+      },
+      "block_order": ["item-1", "item-2", "item-3", "item-4"]
+    },
+    "benefits": {
+      "type": "kc-benefits",
+      "settings": {
+        "heading": "Why KeraClear Works <em>When Others Don't</em>"
+      }
+    },
+    "doctor": {
+      "type": "kc-doctor",
+      "settings": {
+        "eyebrow": "Board-Certified Dermatologist",
+        "name": "Dr. James Langford, MD",
+        "credentials": "Harvard Medical School Graduate • 22 Years in Dermatology",
+        "quote": "After 22 years treating nail fungus, I developed KeraClear because I was frustrated watching my patients fail with the same ineffective treatments. The key breakthrough was our biofilm penetration technology — once you break through that barrier, the fungus has nowhere to hide."
+      }
+    },
+    "how-it-works": {
+      "type": "kc-how-it-works",
+      "settings": {
+        "heading": "How KeraClear Works",
+        "subheading": "A simple 60-second daily routine"
+      }
+    },
+    "ingredients": {
+      "type": "kc-ingredients",
+      "settings": {
+        "heading": "Clinically-Studied Ingredients",
+        "subheading": "Every ingredient backed by science, selected by a dermatologist"
+      }
+    },
+    "video-testimonials": {
+      "type": "kc-video-testimonials",
+      "settings": {
+        "heading": "Hear From Real Customers",
+        "subheading": "Watch their stories of transformation"
+      },
+      "blocks": {
+        "vid-1": {
+          "type": "video",
+          "settings": {
+            "name": "Robert M.",
+            "caption": "Clear nails after 90 days of KeraClear"
+          }
+        },
+        "vid-2": {
+          "type": "video",
+          "settings": {
+            "name": "Patricia K.",
+            "caption": "From embarrassed to confident in 60 days"
+          }
+        },
+        "vid-3": {
+          "type": "video",
+          "settings": {
+            "name": "David P.",
+            "caption": "Pharmacist shares his honest review"
+          }
+        }
+      },
+      "block_order": ["vid-1", "vid-2", "vid-3"]
+    },
+    "before-after": {
+      "type": "kc-before-after",
+      "settings": {
+        "heading": "See the Transformation",
+        "subheading": "Real results from verified KeraClear customers"
+      }
+    },
+    "guarantee": {
+      "type": "kc-guarantee",
+      "settings": {
+        "heading": "90-Day Money-Back Guarantee",
+        "text": "We're so confident KeraClear will deliver visible results that we offer a full 90-day money-back guarantee. If you're not completely satisfied, contact us for a full refund — no questions asked. Zero risk, zero hassle.",
+        "signature": "— Dr. James Langford, MD",
+        "button_text": "Start Your Transformation"
+      }
+    },
+    "pricing": {
+      "type": "kc-pricing",
+      "settings": {
+        "heading": "Choose Your Treatment Plan",
+        "subheading": "Every order includes free shipping and our 90-day guarantee"
+      },
+      "blocks": {
+        "tier-1": {
+          "type": "tier",
+          "settings": {
+            "badge": "STARTER",
+            "title": "2 Bottles",
+            "subtitle": "60 Day Supply",
+            "price": "$158",
+            "compare_at_price": "$358",
+            "per_bottle_price": "$79/bottle",
+            "savings": "Save $200",
+            "features": "Free shipping\n90-day guarantee\nFull treatment guide",
+            "button_text": "Add to Cart",
+            "is_featured": false
+          }
+        },
+        "tier-2": {
+          "type": "tier",
+          "settings": {
+            "badge": "MOST POPULAR",
+            "title": "3 Bottles",
+            "subtitle": "90 Day Supply",
+            "price": "$207",
+            "compare_at_price": "$537",
+            "per_bottle_price": "$69/bottle",
+            "savings": "Save $330",
+            "features": "Free shipping\n90-day guarantee\nFull treatment guide\nPriority support",
+            "button_text": "Add to Cart — Best Value",
+            "is_featured": true
+          }
+        },
+        "tier-3": {
+          "type": "tier",
+          "settings": {
+            "badge": "BEST VALUE",
+            "title": "6 Bottles",
+            "subtitle": "180 Day Supply",
+            "price": "$294",
+            "compare_at_price": "$1,074",
+            "per_bottle_price": "$49/bottle",
+            "savings": "Save $780",
+            "features": "Free shipping\n90-day guarantee\nFull treatment guide\nPriority support\nFree nail care kit",
+            "button_text": "Add to Cart — Maximum Savings",
+            "is_featured": false
+          }
+        }
+      },
+      "block_order": ["tier-1", "tier-2", "tier-3"]
+    },
+    "written-reviews": {
+      "type": "kc-written-reviews",
+      "settings": {
+        "heading": "What Our Customers Say"
+      }
+    },
+    "faq": {
+      "type": "kc-faq",
+      "settings": {
+        "heading": "Frequently Asked Questions"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "trust-bar",
+    "review-cards",
+    "why-fail",
+    "benefits",
+    "doctor",
+    "how-it-works",
+    "ingredients",
+    "video-testimonials",
+    "before-after",
+    "guarantee",
+    "pricing",
+    "written-reviews",
+    "faq"
+  ]
+}

@@ -1,0 +1,303 @@
+{{ 'https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600&display=swap' | stylesheet_tag }}
+
+{% style %}
+  :root {
+    --kc-teal: #0D7377;
+    --kc-teal-dark: #095456;
+    --kc-teal-light: #E6F3F3;
+    --kc-gold: #C8A951;
+    --kc-gold-light: #F5EDDA;
+    --kc-white: #FFFFFF;
+    --kc-black: #1A1A1A;
+    --kc-gray: #6B7280;
+    --kc-font-heading: 'Playfair Display', serif;
+    --kc-font-body: 'Inter', sans-serif;
+    --kc-radius: 12px;
+    --kc-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+    --kc-max-width: 1200px;
+  }
+
+  .kc-hiw {
+    padding: 80px 20px;
+    background: var(--kc-white);
+  }
+
+  .kc-hiw__inner {
+    max-width: var(--kc-max-width);
+    margin: 0 auto;
+  }
+
+  .kc-hiw__header {
+    text-align: center;
+    margin-bottom: 64px;
+  }
+
+  .kc-hiw__heading {
+    font-family: var(--kc-font-heading);
+    font-size: 42px;
+    font-weight: 700;
+    color: var(--kc-black);
+    margin: 0 0 16px 0;
+    line-height: 1.2;
+  }
+
+  .kc-hiw__subheading {
+    font-family: var(--kc-font-body);
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--kc-gray);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .kc-hiw__steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    position: relative;
+  }
+
+  /* Connecting line between steps on desktop */
+  .kc-hiw__steps::before {
+    content: '';
+    position: absolute;
+    top: 40px;
+    left: calc(16.666% + 20px);
+    right: calc(16.666% + 20px);
+    height: 2px;
+    background: linear-gradient(90deg, var(--kc-teal), var(--kc-gold), var(--kc-teal));
+    opacity: 0.3;
+    z-index: 0;
+  }
+
+  .kc-hiw__step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .kc-hiw__number {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: var(--kc-teal);
+    color: var(--kc-white);
+    font-family: var(--kc-font-heading);
+    font-size: 32px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 28px;
+    box-shadow: 0 6px 20px rgba(13, 115, 119, 0.3);
+    flex-shrink: 0;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .kc-hiw__step:hover .kc-hiw__number {
+    transform: scale(1.08);
+    box-shadow: 0 8px 28px rgba(13, 115, 119, 0.4);
+  }
+
+  .kc-hiw__step-image {
+    width: 100%;
+    max-width: 240px;
+    aspect-ratio: 4 / 3;
+    border-radius: var(--kc-radius);
+    overflow: hidden;
+    margin-bottom: 24px;
+  }
+
+  .kc-hiw__step-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .kc-hiw__step-title {
+    font-family: var(--kc-font-heading);
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--kc-black);
+    margin: 0 0 12px 0;
+    line-height: 1.3;
+  }
+
+  .kc-hiw__step-desc {
+    font-family: var(--kc-font-body);
+    font-size: 15px;
+    font-weight: 400;
+    color: var(--kc-gray);
+    margin: 0;
+    line-height: 1.7;
+    max-width: 320px;
+  }
+
+  @media (max-width: 900px) {
+    .kc-hiw__steps {
+      grid-template-columns: 1fr;
+      gap: 48px;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    .kc-hiw__steps::before {
+      display: none;
+    }
+
+    .kc-hiw__heading {
+      font-size: 34px;
+    }
+
+    .kc-hiw__subheading {
+      font-size: 16px;
+    }
+
+    .kc-hiw {
+      padding: 60px 20px;
+    }
+
+    .kc-hiw__header {
+      margin-bottom: 48px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .kc-hiw__heading {
+      font-size: 28px;
+    }
+
+    .kc-hiw__number {
+      width: 64px;
+      height: 64px;
+      font-size: 26px;
+      margin-bottom: 20px;
+    }
+
+    .kc-hiw__step-title {
+      font-size: 20px;
+    }
+
+    .kc-hiw__step-desc {
+      font-size: 14px;
+    }
+
+    .kc-hiw {
+      padding: 48px 16px;
+    }
+  }
+{% endstyle %}
+
+<section id="how-it-works" class="kc-hiw" data-section-id="{{ section.id }}">
+  <div class="kc-hiw__inner">
+    <div class="kc-hiw__header">
+      {% if section.settings.heading != blank %}
+        <h2 class="kc-hiw__heading">{{ section.settings.heading }}</h2>
+      {% endif %}
+      {% if section.settings.subheading != blank %}
+        <p class="kc-hiw__subheading">{{ section.settings.subheading }}</p>
+      {% endif %}
+    </div>
+
+    <div class="kc-hiw__steps">
+      {% for block in section.blocks %}
+        <div class="kc-hiw__step" {{ block.shopify_attributes }}>
+          <div class="kc-hiw__number">{{ forloop.index }}</div>
+
+          {% if block.settings.image != blank %}
+            <div class="kc-hiw__step-image">
+              {{ block.settings.image | image_url: width: 480 | image_tag: loading: 'lazy', alt: block.settings.title }}
+            </div>
+          {% endif %}
+
+          {% if block.settings.title != blank %}
+            <h3 class="kc-hiw__step-title">{{ block.settings.title }}</h3>
+          {% endif %}
+
+          {% if block.settings.description != blank %}
+            <p class="kc-hiw__step-desc">{{ block.settings.description }}</p>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "KC - How It Works",
+  "tag": "section",
+  "class": "kc-section-how-it-works",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "How KeraClear Works"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "A simple 60-second daily routine"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Step Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Step Title",
+          "default": "Step Title"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Step Description",
+          "default": "Describe this step."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "KC - How It Works",
+      "blocks": [
+        {
+          "type": "step",
+          "settings": {
+            "title": "Apply to Clean, Dry Nails",
+            "description": "Apply 2-3 drops of KeraClear directly to the affected nail. The oil-based formula begins absorbing immediately."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title": "Penetrates the Biofilm",
+            "description": "Our biofilm penetration technology breaks through the protective shield that blocks other treatments, delivering antifungal agents to the root."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title": "Fungus Eliminated at the Source",
+            "description": "With consistent daily use, KeraClear eliminates fungus beneath the nail bed. Clear, healthy nail growth becomes visible in 4-6 weeks."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

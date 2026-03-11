@@ -1,0 +1,43 @@
+{
+  "type": "header",
+  "name": "Header group",
+  "sections": {
+    "announcement": {
+      "type": "kc-announcement",
+      "settings": {}
+    },
+    "header": {
+      "type": "kc-header",
+      "settings": {
+        "logo_text": "KeraClear",
+        "cta_text": "Shop Now",
+        "cta_url": "/"
+      },
+      "blocks": {
+        "link-1": {
+          "type": "link",
+          "settings": {
+            "label": "How It Works",
+            "url": "#how-it-works"
+          }
+        },
+        "link-2": {
+          "type": "link",
+          "settings": {
+            "label": "Ingredients",
+            "url": "#ingredients"
+          }
+        },
+        "link-3": {
+          "type": "link",
+          "settings": {
+            "label": "Reviews",
+            "url": "#reviews"
+          }
+        }
+      },
+      "block_order": ["link-1", "link-2", "link-3"]
+    }
+  },
+  "order": ["announcement", "header"]
+}

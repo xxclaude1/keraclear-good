@@ -1,0 +1,71 @@
+<style>
+  .kc-announce {
+    background: {{ section.settings.bg_color }};
+    color: {{ section.settings.text_color }};
+    padding: 10px 20px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .kc-announce a {
+    color: {{ section.settings.text_color }};
+    text-decoration: underline;
+    font-weight: 600;
+  }
+  .kc-announce__inner {
+    max-width: var(--kc-max-width);
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+</style>
+
+{%- if section.settings.text != blank -%}
+  <div class="kc-announce">
+    <div class="kc-announce__inner">
+      <span>{{ section.settings.text }}</span>
+      {%- if section.settings.link_text != blank -%}
+        <a href="{{ section.settings.link_url }}">{{ section.settings.link_text }}</a>
+      {%- endif -%}
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Announcement bar",
+  "settings": [
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Announcement text",
+      "default": "🔬 Free shipping on all orders — 90-Day Money-Back Guarantee"
+    },
+    {
+      "type": "text",
+      "id": "link_text",
+      "label": "Link text",
+      "default": "Shop Now →"
+    },
+    {
+      "type": "url",
+      "id": "link_url",
+      "label": "Link URL"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#0D7377"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#FFFFFF"
+    }
+  ]
+}
+{% endschema %}

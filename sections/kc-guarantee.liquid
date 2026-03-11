@@ -1,0 +1,420 @@
+<style>
+  .kc-guarantee {
+    background: {{ section.settings.bg_color }};
+    padding: 100px 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .kc-guarantee::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+      radial-gradient(ellipse at 30% 20%, rgba(200, 169, 81, 0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 70% 80%, rgba(200, 169, 81, 0.06) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .kc-guarantee__inner {
+    max-width: 720px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Shield badge */
+  .kc-guarantee__badge {
+    width: 120px;
+    height: 140px;
+    margin: 0 auto 40px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .kc-guarantee__badge-img img {
+    width: 120px;
+    height: 140px;
+    object-fit: contain;
+  }
+
+  .kc-guarantee__shield {
+    position: relative;
+    width: 120px;
+    height: 140px;
+  }
+
+  .kc-guarantee__shield svg {
+    width: 120px;
+    height: 140px;
+    filter: drop-shadow(0 8px 24px rgba(200, 169, 81, 0.25));
+  }
+
+  .kc-guarantee__shield-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    pointer-events: none;
+  }
+
+  .kc-guarantee__shield-number {
+    font-family: var(--kc-font-heading, 'Playfair Display', serif);
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--kc-white, #FFFFFF);
+    line-height: 1;
+  }
+
+  .kc-guarantee__shield-label {
+    font-family: var(--kc-font-body, 'Inter', sans-serif);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1;
+  }
+
+  .kc-guarantee__heading {
+    font-family: var(--kc-font-heading, 'Playfair Display', serif);
+    font-size: clamp(28px, 4.5vw, 42px);
+    font-weight: 700;
+    color: {{ section.settings.heading_color }};
+    margin: 0 0 24px 0;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+
+  .kc-guarantee__body {
+    font-family: var(--kc-font-body, 'Inter', sans-serif);
+    font-size: 17px;
+    line-height: 1.8;
+    color: {{ section.settings.body_color }};
+    margin: 0 0 28px 0;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .kc-guarantee__signature {
+    font-family: var(--kc-font-heading, 'Playfair Display', serif);
+    font-size: 18px;
+    font-style: italic;
+    font-weight: 600;
+    color: {{ section.settings.signature_color }};
+    margin: 0 0 40px 0;
+  }
+
+  .kc-guarantee__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-family: var(--kc-font-body, 'Inter', sans-serif);
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    padding: 18px 44px;
+    background: {{ section.settings.btn_bg }};
+    color: {{ section.settings.btn_text_color }};
+    border: none;
+    border-radius: var(--kc-radius, 12px);
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 16px rgba(13, 115, 119, 0.3), 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .kc-guarantee__btn::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .kc-guarantee__btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(13, 115, 119, 0.4), 0 4px 8px rgba(0, 0, 0, 0.12);
+  }
+
+  .kc-guarantee__btn:active {
+    transform: translateY(0);
+  }
+
+  .kc-guarantee__btn svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+  }
+
+  .kc-guarantee__btn:hover svg {
+    transform: translateX(3px);
+  }
+
+  /* Decorative border */
+  .kc-guarantee__border {
+    position: absolute;
+    top: 24px;
+    left: 24px;
+    right: 24px;
+    bottom: 24px;
+    border: 1px solid rgba(200, 169, 81, 0.2);
+    border-radius: 16px;
+    pointer-events: none;
+  }
+
+  /* Tablet */
+  @media (max-width: 1024px) {
+    .kc-guarantee {
+      padding: 80px 20px;
+    }
+
+    .kc-guarantee__border {
+      top: 16px;
+      left: 16px;
+      right: 16px;
+      bottom: 16px;
+    }
+  }
+
+  /* Mobile */
+  @media (max-width: 768px) {
+    .kc-guarantee {
+      padding: 56px 16px;
+    }
+
+    .kc-guarantee__badge {
+      width: 96px;
+      height: 112px;
+      margin-bottom: 28px;
+    }
+
+    .kc-guarantee__shield {
+      width: 96px;
+      height: 112px;
+    }
+
+    .kc-guarantee__shield svg {
+      width: 96px;
+      height: 112px;
+    }
+
+    .kc-guarantee__shield-number {
+      font-size: 26px;
+    }
+
+    .kc-guarantee__shield-label {
+      font-size: 8px;
+    }
+
+    .kc-guarantee__badge-img img {
+      width: 96px;
+      height: 112px;
+    }
+
+    .kc-guarantee__body {
+      font-size: 15px;
+    }
+
+    .kc-guarantee__signature {
+      font-size: 16px;
+      margin-bottom: 32px;
+    }
+
+    .kc-guarantee__btn {
+      width: 100%;
+      max-width: 380px;
+      padding: 16px 32px;
+    }
+
+    .kc-guarantee__border {
+      top: 12px;
+      left: 12px;
+      right: 12px;
+      bottom: 12px;
+      border-radius: 12px;
+    }
+  }
+</style>
+
+<section class="kc-guarantee" data-section-id="{{ section.id }}">
+  <div class="kc-guarantee__border"></div>
+
+  <div class="kc-guarantee__inner">
+    {%- comment -%} Badge: use custom image if uploaded, otherwise render CSS shield {%- endcomment -%}
+    <div class="kc-guarantee__badge">
+      {%- if section.settings.badge_image != blank -%}
+        <div class="kc-guarantee__badge-img">
+          <img
+            src="{{ section.settings.badge_image | image_url: width: 240 }}"
+            alt="Guarantee badge"
+            width="120"
+            height="140"
+            loading="lazy"
+          >
+        </div>
+      {%- else -%}
+        <div class="kc-guarantee__shield">
+          <svg viewBox="0 0 120 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="shieldGrad-{{ section.id }}" x1="0" y1="0" x2="120" y2="140" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#C8A951"/>
+                <stop offset="50%" stop-color="#D4B964"/>
+                <stop offset="100%" stop-color="#B8993D"/>
+              </linearGradient>
+              <linearGradient id="shieldInner-{{ section.id }}" x1="0" y1="0" x2="120" y2="140" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#0D7377"/>
+                <stop offset="100%" stop-color="#095456"/>
+              </linearGradient>
+            </defs>
+            <path d="M60 4L8 28V68C8 98 30 124 60 136C90 124 112 98 112 68V28L60 4Z" fill="url(#shieldGrad-{{ section.id }})"/>
+            <path d="M60 12L16 33V68C16 94 35 117 60 128C85 117 104 94 104 68V33L60 12Z" fill="url(#shieldInner-{{ section.id }})"/>
+            <path d="M48 70L56 78L74 60" stroke="rgba(255,255,255,0.15)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </svg>
+          <div class="kc-guarantee__shield-text">
+            <span class="kc-guarantee__shield-number">90</span>
+            <span class="kc-guarantee__shield-label">Day Guarantee</span>
+          </div>
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- if section.settings.heading != blank -%}
+      <h2 class="kc-guarantee__heading">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+
+    {%- if section.settings.body != blank -%}
+      <p class="kc-guarantee__body">{{ section.settings.body }}</p>
+    {%- endif -%}
+
+    {%- if section.settings.signature != blank -%}
+      <p class="kc-guarantee__signature">{{ section.settings.signature }}</p>
+    {%- endif -%}
+
+    {%- if section.settings.btn_text != blank -%}
+      <a
+        href="{{ section.settings.btn_url | default: '#' }}"
+        class="kc-guarantee__btn"
+      >
+        {{ section.settings.btn_text }}
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "KC Guarantee",
+  "tag": "section",
+  "class": "kc-section-guarantee",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Badge"
+    },
+    {
+      "type": "image_picker",
+      "id": "badge_image",
+      "label": "Custom badge image",
+      "info": "Upload a custom guarantee badge. If empty, a styled shield icon will be used."
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "90-Day Money-Back Guarantee"
+    },
+    {
+      "type": "textarea",
+      "id": "body",
+      "label": "Body text",
+      "default": "We're so confident KeraClear will deliver visible results that we offer a full 90-day money-back guarantee. If you're not completely satisfied, contact us for a full refund — no questions asked. Zero risk, zero hassle."
+    },
+    {
+      "type": "text",
+      "id": "signature",
+      "label": "Signature line",
+      "default": "— Dr. James Langford, MD"
+    },
+    {
+      "type": "text",
+      "id": "btn_text",
+      "label": "Button text",
+      "default": "Start Your Risk-Free Treatment"
+    },
+    {
+      "type": "url",
+      "id": "btn_url",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#FFF8E7"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#0B4F52"
+    },
+    {
+      "type": "color",
+      "id": "body_color",
+      "label": "Body text color",
+      "default": "#4A5568"
+    },
+    {
+      "type": "color",
+      "id": "signature_color",
+      "label": "Signature color",
+      "default": "#C8A951"
+    },
+    {
+      "type": "color",
+      "id": "btn_bg",
+      "label": "Button background",
+      "default": "#0D7377"
+    },
+    {
+      "type": "color",
+      "id": "btn_text_color",
+      "label": "Button text color",
+      "default": "#FFFFFF"
+    }
+  ],
+  "presets": [
+    {
+      "name": "KC Guarantee"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,51 @@
+{
+  "type": "footer",
+  "name": "Footer group",
+  "sections": {
+    "footer": {
+      "type": "kc-footer",
+      "settings": {
+        "brand_name": "KeraClear",
+        "brand_description": "Doctor-formulated nail health serum that penetrates through the nail bed to fight fungus at its source."
+      },
+      "blocks": {
+        "col-1": {
+          "type": "column",
+          "settings": {
+            "heading": "Shop",
+            "link_1_label": "KeraClear Serum",
+            "link_1_url": "/",
+            "link_2_label": "Our Story",
+            "link_2_url": "/pages/about"
+          }
+        },
+        "col-2": {
+          "type": "column",
+          "settings": {
+            "heading": "Support",
+            "link_1_label": "Contact Us",
+            "link_1_url": "/pages/contact",
+            "link_2_label": "FAQ",
+            "link_2_url": "#faq",
+            "link_3_label": "Shipping & Returns",
+            "link_3_url": "/policies/shipping-policy"
+          }
+        },
+        "col-3": {
+          "type": "column",
+          "settings": {
+            "heading": "Legal",
+            "link_1_label": "Privacy Policy",
+            "link_1_url": "/policies/privacy-policy",
+            "link_2_label": "Terms of Service",
+            "link_2_url": "/policies/terms-of-service",
+            "link_3_label": "Refund Policy",
+            "link_3_url": "/policies/refund-policy"
+          }
+        }
+      },
+      "block_order": ["col-1", "col-2", "col-3"]
+    }
+  },
+  "order": ["footer"]
+}

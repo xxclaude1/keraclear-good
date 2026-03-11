@@ -1,0 +1,506 @@
+{{ 'https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;700italic&family=Inter:wght@400;500;600&display=swap' | stylesheet_tag }}
+
+{% style %}
+  :root {
+    --kc-teal: #0D7377;
+    --kc-teal-dark: #095456;
+    --kc-teal-light: #E8F4F4;
+    --kc-gold: #C8A951;
+    --kc-gold-light: #F5EDD6;
+    --kc-white: #FFFFFF;
+    --kc-black: #1A1A1A;
+    --kc-gray: #6B7280;
+    --kc-font-heading: 'Playfair Display', serif;
+    --kc-font-body: 'Inter', sans-serif;
+    --kc-radius: 12px;
+    --kc-shadow: 0 4px 24px rgba(13, 115, 119, 0.08);
+    --kc-max-width: 1200px;
+  }
+
+  .kc-doctor {
+    padding: 80px 20px;
+    background: var(--kc-teal-light);
+  }
+
+  .kc-doctor__inner {
+    max-width: var(--kc-max-width);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  /* --- Image Column --- */
+  .kc-doctor__image-col {
+    position: relative;
+  }
+
+  .kc-doctor__image-wrapper {
+    position: relative;
+    border-radius: var(--kc-radius);
+    overflow: hidden;
+    box-shadow: 0 12px 40px rgba(13, 115, 119, 0.15);
+  }
+
+  .kc-doctor__image-wrapper::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background: linear-gradient(to top, rgba(9, 84, 86, 0.12), transparent);
+    pointer-events: none;
+  }
+
+  .kc-doctor__image {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+  }
+
+  .kc-doctor__image-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    background: linear-gradient(135deg, var(--kc-teal), var(--kc-teal-dark));
+    color: var(--kc-white);
+    font-family: var(--kc-font-body);
+    font-size: 16px;
+    text-align: center;
+    padding: 40px;
+    border-radius: var(--kc-radius);
+  }
+
+  .kc-doctor__badge {
+    position: absolute;
+    bottom: -16px;
+    right: -16px;
+    background: var(--kc-white);
+    border-radius: var(--kc-radius);
+    padding: 16px 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 2;
+  }
+
+  .kc-doctor__badge-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--kc-teal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .kc-doctor__badge-icon svg {
+    width: 20px;
+    height: 20px;
+    fill: var(--kc-white);
+  }
+
+  .kc-doctor__badge-text {
+    font-family: var(--kc-font-body);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--kc-black);
+    line-height: 1.3;
+  }
+
+  .kc-doctor__badge-text span {
+    display: block;
+    font-weight: 400;
+    color: var(--kc-gray);
+    font-size: 12px;
+  }
+
+  /* --- Text Column --- */
+  .kc-doctor__text-col {
+    padding: 20px 0;
+  }
+
+  .kc-doctor__eyebrow {
+    font-family: var(--kc-font-body);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--kc-gold);
+    margin: 0 0 16px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .kc-doctor__eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 32px;
+    height: 2px;
+    background: var(--kc-gold);
+    flex-shrink: 0;
+  }
+
+  .kc-doctor__name {
+    font-family: var(--kc-font-heading);
+    font-size: 38px;
+    font-weight: 700;
+    color: var(--kc-black);
+    margin: 0 0 8px 0;
+    line-height: 1.2;
+  }
+
+  .kc-doctor__credentials {
+    font-family: var(--kc-font-body);
+    font-size: 15px;
+    font-weight: 400;
+    color: var(--kc-gray);
+    margin: 0 0 32px 0;
+    line-height: 1.5;
+  }
+
+  .kc-doctor__quote-wrapper {
+    position: relative;
+    margin-bottom: 32px;
+    padding-left: 24px;
+    border-left: 3px solid var(--kc-gold);
+  }
+
+  .kc-doctor__quote-mark {
+    font-family: var(--kc-font-heading);
+    font-size: 64px;
+    color: var(--kc-teal);
+    opacity: 0.15;
+    line-height: 1;
+    position: absolute;
+    top: -16px;
+    left: 24px;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .kc-doctor__quote {
+    font-family: var(--kc-font-heading);
+    font-size: 20px;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--kc-teal-dark);
+    margin: 0;
+    line-height: 1.7;
+    position: relative;
+    z-index: 1;
+  }
+
+  .kc-doctor__signature-line {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(13, 115, 119, 0.12);
+  }
+
+  .kc-doctor__sig-dash {
+    width: 24px;
+    height: 2px;
+    background: var(--kc-teal);
+    flex-shrink: 0;
+  }
+
+  .kc-doctor__sig-text {
+    font-family: var(--kc-font-body);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--kc-black);
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  .kc-doctor__sig-text span {
+    display: block;
+    font-weight: 400;
+    color: var(--kc-gray);
+    font-size: 13px;
+  }
+
+  /* --- Credentials List --- */
+  .kc-doctor__cred-list {
+    list-style: none;
+    margin: 28px 0 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .kc-doctor__cred-item {
+    font-family: var(--kc-font-body);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--kc-teal-dark);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    line-height: 1.4;
+  }
+
+  .kc-doctor__cred-check {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--kc-teal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .kc-doctor__cred-check svg {
+    width: 12px;
+    height: 12px;
+    fill: none;
+    stroke: var(--kc-white);
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* --- Mobile --- */
+  @media (max-width: 900px) {
+    .kc-doctor {
+      padding: 56px 16px;
+    }
+
+    .kc-doctor__inner {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .kc-doctor__image-col {
+      max-width: 480px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .kc-doctor__badge {
+      bottom: -12px;
+      right: -8px;
+    }
+
+    .kc-doctor__name {
+      font-size: 30px;
+    }
+
+    .kc-doctor__quote {
+      font-size: 18px;
+    }
+
+    .kc-doctor__text-col {
+      padding: 0;
+    }
+  }
+{% endstyle %}
+
+<section class="kc-doctor" id="doctor-endorsement">
+  <div class="kc-doctor__inner">
+    <!-- Image Column -->
+    <div class="kc-doctor__image-col">
+      <div class="kc-doctor__image-wrapper">
+        {% if section.settings.doctor_image != blank %}
+          <img
+            class="kc-doctor__image"
+            src="{{ section.settings.doctor_image | image_url: width: 800 }}"
+            alt="{{ section.settings.doctor_name | escape }}"
+            width="800"
+            height="1000"
+            loading="lazy"
+          >
+        {% else %}
+          <div class="kc-doctor__image-placeholder">
+            Upload a professional photo of the doctor via the theme editor.
+          </div>
+        {% endif %}
+      </div>
+
+      {% if section.settings.show_badge %}
+        <div class="kc-doctor__badge">
+          <div class="kc-doctor__badge-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M12 2L14.09 8.26L21 9.27L16 14.14L17.18 21.02L12 17.77L6.82 21.02L8 14.14L3 9.27L9.91 8.26L12 2Z"/>
+            </svg>
+          </div>
+          <div class="kc-doctor__badge-text">
+            {{ section.settings.badge_text }}
+            <span>{{ section.settings.badge_subtext }}</span>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+
+    <!-- Text Column -->
+    <div class="kc-doctor__text-col">
+      {% if section.settings.eyebrow != blank %}
+        <p class="kc-doctor__eyebrow">{{ section.settings.eyebrow }}</p>
+      {% endif %}
+
+      {% if section.settings.doctor_name != blank %}
+        <h2 class="kc-doctor__name">{{ section.settings.doctor_name }}</h2>
+      {% endif %}
+
+      {% if section.settings.credentials != blank %}
+        <p class="kc-doctor__credentials">{{ section.settings.credentials }}</p>
+      {% endif %}
+
+      {% if section.settings.quote != blank %}
+        <div class="kc-doctor__quote-wrapper">
+          <span class="kc-doctor__quote-mark" aria-hidden="true">"</span>
+          <blockquote class="kc-doctor__quote">
+            "{{ section.settings.quote }}"
+          </blockquote>
+        </div>
+      {% endif %}
+
+      <div class="kc-doctor__signature-line">
+        <div class="kc-doctor__sig-dash"></div>
+        <p class="kc-doctor__sig-text">
+          {{ section.settings.doctor_name }}
+          {% if section.settings.signature_credential != blank %}
+            <span>{{ section.settings.signature_credential }}</span>
+          {% endif %}
+        </p>
+      </div>
+
+      {% if section.blocks.size > 0 %}
+        <ul class="kc-doctor__cred-list">
+          {% for block in section.blocks %}
+            <li class="kc-doctor__cred-item" {{ block.shopify_attributes }}>
+              <span class="kc-doctor__cred-check">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+              </span>
+              {{ block.settings.credential_text }}
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "KC Doctor Endorsement",
+  "tag": "section",
+  "class": "kc-doctor-section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "doctor_image",
+      "label": "Doctor Photo",
+      "info": "Recommended: 800x1000px professional headshot or three-quarter portrait."
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow Text",
+      "default": "Board-Certified Dermatologist"
+    },
+    {
+      "type": "text",
+      "id": "doctor_name",
+      "label": "Doctor Name",
+      "default": "Dr. James Langford, MD"
+    },
+    {
+      "type": "text",
+      "id": "credentials",
+      "label": "Credentials Line",
+      "default": "Harvard Medical School Graduate • 22 Years in Dermatology"
+    },
+    {
+      "type": "textarea",
+      "id": "quote",
+      "label": "Doctor Quote",
+      "default": "After 22 years treating nail fungus, I developed KeraClear because I was frustrated watching my patients fail with the same ineffective treatments. The key breakthrough was our biofilm penetration technology — once you break through that barrier, the fungus has nowhere to hide."
+    },
+    {
+      "type": "text",
+      "id": "signature_credential",
+      "label": "Signature Credential",
+      "default": "Board-Certified Dermatologist, FAAD"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_badge",
+      "label": "Show Floating Badge",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge Text",
+      "default": "Board Certified"
+    },
+    {
+      "type": "text",
+      "id": "badge_subtext",
+      "label": "Badge Subtext",
+      "default": "22+ Years Experience"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "credential_item",
+      "name": "Credential Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "credential_text",
+          "label": "Credential",
+          "default": "Board-Certified Dermatologist"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "KC Doctor Endorsement",
+      "blocks": [
+        {
+          "type": "credential_item",
+          "settings": {
+            "credential_text": "Board-Certified Dermatologist (FAAD)"
+          }
+        },
+        {
+          "type": "credential_item",
+          "settings": {
+            "credential_text": "Harvard Medical School Graduate"
+          }
+        },
+        {
+          "type": "credential_item",
+          "settings": {
+            "credential_text": "22+ Years Treating Nail Conditions"
+          }
+        },
+        {
+          "type": "credential_item",
+          "settings": {
+            "credential_text": "Published Researcher in Dermatological Treatments"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,311 @@
+<style>
+  .kc-trust {
+    background: {{ section.settings.bg_color }};
+    overflow: hidden;
+    position: relative;
+    padding: {{ section.settings.padding_y }}px 0;
+  }
+
+  .kc-trust::before,
+  .kc-trust::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 60px;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .kc-trust::before {
+    left: 0;
+    background: linear-gradient(90deg, {{ section.settings.bg_color }}, transparent);
+  }
+
+  .kc-trust::after {
+    right: 0;
+    background: linear-gradient(270deg, {{ section.settings.bg_color }}, transparent);
+  }
+
+  .kc-trust__track {
+    display: flex;
+    width: max-content;
+    animation: kc-marquee {{ section.settings.speed }}s linear infinite;
+  }
+
+  .kc-trust__track:hover {
+    animation-play-state: paused;
+  }
+
+  .kc-trust__set {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .kc-trust__item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 32px;
+    white-space: nowrap;
+    position: relative;
+  }
+
+  .kc-trust__item::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: {{ section.settings.divider_color }};
+    opacity: 0.5;
+  }
+
+  .kc-trust__icon {
+    font-size: 20px;
+    line-height: 1;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+  }
+
+  .kc-trust__text {
+    font-family: var(--kc-font-body, 'Inter', sans-serif);
+    font-size: {{ section.settings.font_size }}px;
+    font-weight: 600;
+    color: {{ section.settings.text_color }};
+    letter-spacing: 0.03em;
+  }
+
+  @keyframes kc-marquee {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .kc-trust__track {
+      animation: none;
+      flex-wrap: wrap;
+      justify-content: center;
+      width: 100%;
+    }
+
+    .kc-trust__set:nth-child(2) {
+      display: none;
+    }
+
+    .kc-trust__item {
+      padding: 8px 24px;
+    }
+  }
+
+  /* Mobile */
+  @media (max-width: 768px) {
+    .kc-trust__item {
+      padding: 0 24px;
+    }
+
+    .kc-trust__icon {
+      font-size: 18px;
+      width: 32px;
+      height: 32px;
+    }
+
+    .kc-trust__text {
+      font-size: 13px;
+    }
+
+    .kc-trust::before,
+    .kc-trust::after {
+      width: 30px;
+    }
+  }
+</style>
+
+{%- if section.blocks.size > 0 -%}
+  <section class="kc-trust" data-section-id="{{ section.id }}" aria-label="Trust badges">
+    <div class="kc-trust__track" aria-hidden="true">
+      {%- comment -%}
+        Duplicate the set so the marquee loops seamlessly.
+        The animation shifts -50%, and the second copy fills the gap.
+      {%- endcomment -%}
+
+      <div class="kc-trust__set">
+        {%- for block in section.blocks -%}
+          <div class="kc-trust__item" {{ block.shopify_attributes }}>
+            {%- if block.settings.icon != blank -%}
+              <span class="kc-trust__icon">{{ block.settings.icon }}</span>
+            {%- endif -%}
+            {%- if block.settings.text != blank -%}
+              <span class="kc-trust__text">{{ block.settings.text }}</span>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+
+      <div class="kc-trust__set">
+        {%- for block in section.blocks -%}
+          <div class="kc-trust__item">
+            {%- if block.settings.icon != blank -%}
+              <span class="kc-trust__icon">{{ block.settings.icon }}</span>
+            {%- endif -%}
+            {%- if block.settings.text != blank -%}
+              <span class="kc-trust__text">{{ block.settings.text }}</span>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+
+    {%- comment -%} Accessible fallback for screen readers {%- endcomment -%}
+    <div class="visually-hidden">
+      <ul>
+        {%- for block in section.blocks -%}
+          <li>{{ block.settings.text }}</li>
+        {%- endfor -%}
+      </ul>
+    </div>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "KeraClear Trust Bar",
+  "tag": "section",
+  "class": "kc-section-trust",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Appearance"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#0D7377"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "divider_color",
+      "label": "Divider dot color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "label": "Font size (px)",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "default": 14,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_y",
+      "label": "Vertical padding",
+      "min": 8,
+      "max": 32,
+      "step": 2,
+      "default": 16,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Animation"
+    },
+    {
+      "type": "range",
+      "id": "speed",
+      "label": "Scroll speed (seconds)",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "default": 30,
+      "unit": "s"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "badge",
+      "name": "Trust badge",
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Icon (emoji or symbol)",
+          "default": "🛡️"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Badge text",
+          "default": "Trust badge"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "KeraClear Trust Bar",
+      "blocks": [
+        {
+          "type": "badge",
+          "settings": {
+            "icon": "👨‍⚕️",
+            "text": "12,000+ Patients Treated"
+          }
+        },
+        {
+          "type": "badge",
+          "settings": {
+            "icon": "🏅",
+            "text": "Board-Certified Dermatologist"
+          }
+        },
+        {
+          "type": "badge",
+          "settings": {
+            "icon": "🏭",
+            "text": "FDA Registered Facility"
+          }
+        },
+        {
+          "type": "badge",
+          "settings": {
+            "icon": "🛡️",
+            "text": "90-Day Money-Back Guarantee"
+          }
+        },
+        {
+          "type": "badge",
+          "settings": {
+            "icon": "🇺🇸",
+            "text": "Made in USA"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

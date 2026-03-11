@@ -1,0 +1,355 @@
+{{ 'section-kc-review-cards' | append: section.id }}
+
+<style>
+  #kc-review-cards-{{ section.id }} {
+    padding: 80px 20px;
+    background-color: var(--kc-white, #FFFFFF);
+  }
+
+  #kc-review-cards-{{ section.id }} .kc-reviews__container {
+    max-width: var(--kc-max-width, 1200px);
+    margin: 0 auto;
+  }
+
+  #kc-review-cards-{{ section.id }} .kc-reviews__heading {
+    font-family: var(--kc-font-heading, 'Playfair Display', serif);
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--kc-teal-dark, #095557);
+    text-align: center;
+    margin: 0 0 16px;
+    line-height: 1.2;
+  }
+
+  #kc-review-cards-{{ section.id }} .kc-reviews__subheading {
+    font-family: var(--kc-font-body, 'Inter', sans-serif);
+    font-size: 1.125rem;
+    color: var(--kc-gray, #6B7280);
+    text-align: center;
+    margin: 0 0 48px;
+    line-height: 1.6;
+  }
+
+  #kc-review-cards-{{ section.id }} .kc-reviews__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+
+  #kc-review-cards-{{ section.id }} .kc-review-card {
+    background: #FFFFFF;
+    border-radius: var(--kc-radius, 12px);
+    box-shadow: var(--kc-shadow, 0 4px 20px rgba(0, 0, 0, 0.08));
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  #kc-review-cards-{{ section.id }} .kc-review-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  }
+
+  #kc-review-cards-{{ section.id }} .kc-review-card__stars {
+    display: flex;
+    gap: 3px;
+    margin-bottom: 16px;
+  }
+
+  #kc-review-cards-{{ section.id }} .kc-review-card__star {
+    color: var(--kc-gold, #C8A951);
+    font-size: 1.25rem;
+    line-height: 1;
+  }
+
+  #kc-review-cards-{{ section.id }} .kc-review-card__star--empty {
+    color: #D1D5DB;
+  }
+
+  #kc-review-cards-{{ section.id }} .kc-review-card__title {
+    font-family: var(--kc-font-heading, 'Playfair Display', serif);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--kc-black, #111827);
+    margin: 0 0 12px;
+    line-height: 1.3;
+  }
+
+  #kc-review-cards-{{ section.id }} .kc-review-card__text {
+    font-family: var(--kc-font-body, 'Inter', sans-serif);
+    font-size: 1rem;
+    color: var(--kc-gray, #6B7280);
+    line-height: 1.7;
+    margin: 0 0 24px;
+    flex-grow: 1;
+  }
+
+  #kc-review-cards-{{ section.id }} .kc-review-card__reviewer {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-top: 20px;
+    border-top: 1px solid #F3F4F6;
+  }
+
+  #kc-review-cards-{{ section.id }} .kc-review-card__avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  #kc-review-cards-{{ section.id }} .kc-review-card__avatar-placeholder {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--kc-teal-light, #E0F2F1);
+    color: var(--kc-teal, #0D7377);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--kc-font-heading, 'Playfair Display', serif);
+    font-size: 1.125rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  #kc-review-cards-{{ section.id }} .kc-review-card__reviewer-info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #kc-review-cards-{{ section.id }} .kc-review-card__name {
+    font-family: var(--kc-font-body, 'Inter', sans-serif);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--kc-black, #111827);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  #kc-review-cards-{{ section.id }} .kc-review-card__location {
+    font-family: var(--kc-font-body, 'Inter', sans-serif);
+    font-size: 0.8125rem;
+    color: var(--kc-gray, #6B7280);
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  #kc-review-cards-{{ section.id }} .kc-review-card__verified {
+    font-family: var(--kc-font-body, 'Inter', sans-serif);
+    font-size: 0.75rem;
+    color: var(--kc-teal, #0D7377);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 2px;
+  }
+
+  @media (max-width: 900px) {
+    #kc-review-cards-{{ section.id }} .kc-reviews__grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    #kc-review-cards-{{ section.id }} {
+      padding: 56px 16px;
+    }
+
+    #kc-review-cards-{{ section.id }} .kc-reviews__heading {
+      font-size: 1.875rem;
+    }
+
+    #kc-review-cards-{{ section.id }} .kc-reviews__subheading {
+      font-size: 1rem;
+      margin-bottom: 32px;
+    }
+
+    #kc-review-cards-{{ section.id }} .kc-reviews__grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    #kc-review-cards-{{ section.id }} .kc-review-card {
+      padding: 24px;
+    }
+  }
+</style>
+
+<section id="kc-review-cards-{{ section.id }}">
+  <div class="kc-reviews__container">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="kc-reviews__heading">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+
+    {%- if section.settings.subheading != blank -%}
+      <p class="kc-reviews__subheading">{{ section.settings.subheading }}</p>
+    {%- endif -%}
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="kc-reviews__grid">
+        {%- for block in section.blocks -%}
+          <div class="kc-review-card" {{ block.shopify_attributes }}>
+            {%- comment -%} Star rating {%- endcomment -%}
+            <div class="kc-review-card__stars" aria-label="{{ block.settings.stars }} out of 5 stars">
+              {%- for i in (1..5) -%}
+                {%- if i <= block.settings.stars -%}
+                  <span class="kc-review-card__star" aria-hidden="true">&#9733;</span>
+                {%- else -%}
+                  <span class="kc-review-card__star kc-review-card__star--empty" aria-hidden="true">&#9733;</span>
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+
+            {%- if block.settings.review_title != blank -%}
+              <h3 class="kc-review-card__title">&ldquo;{{ block.settings.review_title }}&rdquo;</h3>
+            {%- endif -%}
+
+            {%- if block.settings.review_text != blank -%}
+              <p class="kc-review-card__text">{{ block.settings.review_text }}</p>
+            {%- endif -%}
+
+            <div class="kc-review-card__reviewer">
+              {%- if block.settings.reviewer_image != blank -%}
+                <img
+                  class="kc-review-card__avatar"
+                  src="{{ block.settings.reviewer_image | image_url: width: 96 }}"
+                  alt="{{ block.settings.reviewer_name | escape }}"
+                  width="48"
+                  height="48"
+                  loading="lazy"
+                >
+              {%- else -%}
+                <div class="kc-review-card__avatar-placeholder">
+                  {{ block.settings.reviewer_name | slice: 0 | upcase }}
+                </div>
+              {%- endif -%}
+
+              <div class="kc-review-card__reviewer-info">
+                {%- if block.settings.reviewer_name != blank -%}
+                  <p class="kc-review-card__name">{{ block.settings.reviewer_name }}</p>
+                {%- endif -%}
+                {%- if block.settings.reviewer_location != blank -%}
+                  <p class="kc-review-card__location">{{ block.settings.reviewer_location }}</p>
+                {%- endif -%}
+                <span class="kc-review-card__verified">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                  Verified Buyer
+                </span>
+              </div>
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "KC Review Cards",
+  "tag": "section",
+  "class": "kc-review-cards-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Real People, Real Results"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Thousands of customers have transformed their nails with KeraClear."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        {
+          "type": "range",
+          "id": "stars",
+          "label": "Star rating",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 5
+        },
+        {
+          "type": "text",
+          "id": "review_title",
+          "label": "Review title",
+          "default": "Amazing product!"
+        },
+        {
+          "type": "textarea",
+          "id": "review_text",
+          "label": "Review text",
+          "default": "This product really delivered on its promise."
+        },
+        {
+          "type": "text",
+          "id": "reviewer_name",
+          "label": "Reviewer name",
+          "default": "Customer"
+        },
+        {
+          "type": "text",
+          "id": "reviewer_location",
+          "label": "Reviewer location",
+          "default": "United States"
+        },
+        {
+          "type": "image_picker",
+          "id": "reviewer_image",
+          "label": "Reviewer image (optional)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "KC Review Cards",
+      "blocks": [
+        {
+          "type": "review",
+          "settings": {
+            "stars": 5,
+            "review_title": "Finally something that works!",
+            "review_text": "I've tried everything — pills, creams, even vinegar soaks. After 6 weeks of Keraclear, I could see new clear nail growth.",
+            "reviewer_name": "Robert M.",
+            "reviewer_location": "Tampa, FL"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "stars": 5,
+            "review_title": "Wish I found this sooner",
+            "review_text": "I was embarrassed to wear sandals for 5 years. Keraclear was the perfect alternative — natural ingredients, easy to apply, and it actually delivered.",
+            "reviewer_name": "Patricia K.",
+            "reviewer_location": "Phoenix, AZ"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "stars": 5,
+            "review_title": "The best nail treatment",
+            "review_text": "As a nurse on my feet all day, Keraclear's oil formula absorbs so much better than creams. After 8 weeks, the discoloration is almost gone.",
+            "reviewer_name": "Sandra L.",
+            "reviewer_location": "Chicago, IL"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

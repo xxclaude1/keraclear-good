@@ -1,0 +1,746 @@
+<style>
+  .kc-pricing {
+    background: {{ section.settings.bg_color }};
+    padding: 100px 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .kc-pricing::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+      radial-gradient(ellipse at 20% 0%, rgba(13, 115, 119, 0.04) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 100%, rgba(200, 169, 81, 0.04) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .kc-pricing__inner {
+    max-width: var(--kc-max-width, 1280px);
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .kc-pricing__header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .kc-pricing__heading {
+    font-family: var(--kc-font-heading, 'Playfair Display', serif);
+    font-size: clamp(30px, 4.5vw, 44px);
+    font-weight: 700;
+    color: {{ section.settings.heading_color }};
+    margin: 0 0 16px 0;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+
+  .kc-pricing__subheading {
+    font-family: var(--kc-font-body, 'Inter', sans-serif);
+    font-size: 18px;
+    font-weight: 400;
+    color: {{ section.settings.subheading_color }};
+    margin: 0;
+    line-height: 1.6;
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Grid */
+  .kc-pricing__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    align-items: stretch;
+  }
+
+  /* Card base */
+  .kc-pricing__card {
+    background: var(--kc-white, #FFFFFF);
+    border: 2px solid #E5E7EB;
+    border-radius: 16px;
+    padding: 40px 28px 36px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
+    overflow: visible;
+  }
+
+  .kc-pricing__card:hover {
+    transform: translateY(-4px);
+  }
+
+  /* Featured card */
+  .kc-pricing__card--featured {
+    border-color: var(--kc-teal, #0D7377);
+    box-shadow:
+      0 8px 40px rgba(13, 115, 119, 0.15),
+      0 2px 8px rgba(0, 0, 0, 0.06);
+    transform: scale(1.04);
+    z-index: 2;
+    padding-top: 48px;
+    padding-bottom: 40px;
+  }
+
+  .kc-pricing__card--featured:hover {
+    transform: scale(1.04) translateY(-4px);
+    box-shadow:
+      0 12px 48px rgba(13, 115, 119, 0.2),
+      0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  /* Top gradient bar on featured */
+  .kc-pricing__card--featured::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--kc-teal, #0D7377), var(--kc-gold, #C8A951));
+    border-radius: 16px 16px 0 0;
+  }
+
+  /* Badge */
+  .kc-pricing__badge {
+    display: inline-block;
+    font-family: var(--kc-font-body, 'Inter', sans-serif);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 100px;
+    margin-bottom: 20px;
+    width: fit-content;
+    background: rgba(13, 115, 119, 0.08);
+    color: var(--kc-teal, #0D7377);
+    border: 1px solid rgba(13, 115, 119, 0.15);
+  }
+
+  .kc-pricing__card--featured .kc-pricing__badge {
+    background: var(--kc-teal, #0D7377);
+    color: var(--kc-white, #FFFFFF);
+    border-color: var(--kc-teal, #0D7377);
+    box-shadow: 0 2px 8px rgba(13, 115, 119, 0.3);
+  }
+
+  /* Title */
+  .kc-pricing__title {
+    font-family: var(--kc-font-heading, 'Playfair Display', serif);
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--kc-black, #1A1A1A);
+    margin: 0 0 4px 0;
+    line-height: 1.2;
+  }
+
+  /* Subtitle */
+  .kc-pricing__subtitle {
+    font-family: var(--kc-font-body, 'Inter', sans-serif);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--kc-gray, #6B7280);
+    margin: 0 0 24px 0;
+  }
+
+  /* Divider */
+  .kc-pricing__divider {
+    width: 100%;
+    height: 1px;
+    background: #E5E7EB;
+    margin: 0 0 24px 0;
+    border: none;
+  }
+
+  /* Price block */
+  .kc-pricing__price-block {
+    margin-bottom: 8px;
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .kc-pricing__price {
+    font-family: var(--kc-font-heading, 'Playfair Display', serif);
+    font-size: 44px;
+    font-weight: 700;
+    color: var(--kc-black, #1A1A1A);
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  .kc-pricing__card--featured .kc-pricing__price {
+    color: var(--kc-teal, #0D7377);
+  }
+
+  .kc-pricing__compare-price {
+    font-family: var(--kc-font-body, 'Inter', sans-serif);
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--kc-red, #DC2626);
+    text-decoration: line-through;
+    opacity: 0.8;
+  }
+
+  /* Per bottle */
+  .kc-pricing__per-bottle {
+    font-family: var(--kc-font-body, 'Inter', sans-serif);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--kc-gray, #6B7280);
+    margin: 0 0 12px 0;
+  }
+
+  /* Savings */
+  .kc-pricing__savings {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--kc-font-body, 'Inter', sans-serif);
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--kc-green, #059669);
+    background: rgba(5, 150, 105, 0.08);
+    border: 1px solid rgba(5, 150, 105, 0.15);
+    padding: 5px 14px;
+    border-radius: 100px;
+    margin-bottom: 24px;
+  }
+
+  .kc-pricing__savings svg {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+  }
+
+  /* Feature list */
+  .kc-pricing__features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 32px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex-grow: 1;
+  }
+
+  .kc-pricing__feature {
+    font-family: var(--kc-font-body, 'Inter', sans-serif);
+    font-size: 14px;
+    font-weight: 400;
+    color: #374151;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    line-height: 1.5;
+  }
+
+  .kc-pricing__feature-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: rgba(5, 150, 105, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .kc-pricing__feature-icon svg {
+    width: 12px;
+    height: 12px;
+    color: var(--kc-green, #059669);
+  }
+
+  /* CTA button */
+  .kc-pricing__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    font-family: var(--kc-font-body, 'Inter', sans-serif);
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    padding: 16px 24px;
+    border-radius: var(--kc-radius, 12px);
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 2px solid var(--kc-teal, #0D7377);
+    background: var(--kc-white, #FFFFFF);
+    color: var(--kc-teal, #0D7377);
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    margin-top: auto;
+  }
+
+  .kc-pricing__btn:hover {
+    background: rgba(13, 115, 119, 0.04);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(13, 115, 119, 0.15);
+  }
+
+  .kc-pricing__btn:active {
+    transform: translateY(0);
+  }
+
+  /* Featured button is filled */
+  .kc-pricing__card--featured .kc-pricing__btn {
+    background: var(--kc-teal, #0D7377);
+    color: var(--kc-white, #FFFFFF);
+    border-color: var(--kc-teal, #0D7377);
+    box-shadow: 0 4px 16px rgba(13, 115, 119, 0.3), 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .kc-pricing__card--featured .kc-pricing__btn::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .kc-pricing__card--featured .kc-pricing__btn:hover {
+    background: var(--kc-teal-dark, #095456);
+    border-color: var(--kc-teal-dark, #095456);
+    box-shadow: 0 8px 24px rgba(13, 115, 119, 0.4), 0 4px 8px rgba(0, 0, 0, 0.12);
+  }
+
+  .kc-pricing__btn svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+  }
+
+  .kc-pricing__btn:hover svg {
+    transform: translateX(2px);
+  }
+
+  /* Trust bar below pricing */
+  .kc-pricing__trust {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    margin-top: 48px;
+    flex-wrap: wrap;
+  }
+
+  .kc-pricing__trust-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--kc-font-body, 'Inter', sans-serif);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--kc-gray, #6B7280);
+  }
+
+  .kc-pricing__trust-icon {
+    width: 20px;
+    height: 20px;
+    color: var(--kc-teal, #0D7377);
+    flex-shrink: 0;
+  }
+
+  /* Tablet */
+  @media (max-width: 1024px) {
+    .kc-pricing {
+      padding: 80px 20px;
+    }
+
+    .kc-pricing__grid {
+      gap: 20px;
+    }
+
+    .kc-pricing__card {
+      padding: 32px 22px 30px;
+    }
+
+    .kc-pricing__card--featured {
+      padding-top: 40px;
+      padding-bottom: 34px;
+    }
+
+    .kc-pricing__price {
+      font-size: 38px;
+    }
+
+    .kc-pricing__title {
+      font-size: 22px;
+    }
+  }
+
+  /* Mobile */
+  @media (max-width: 768px) {
+    .kc-pricing {
+      padding: 56px 16px;
+    }
+
+    .kc-pricing__header {
+      margin-bottom: 40px;
+    }
+
+    .kc-pricing__subheading {
+      font-size: 16px;
+    }
+
+    .kc-pricing__grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+      max-width: 420px;
+      margin: 0 auto;
+    }
+
+    .kc-pricing__card--featured {
+      transform: none;
+      order: -1;
+    }
+
+    .kc-pricing__card--featured:hover {
+      transform: translateY(-4px);
+    }
+
+    .kc-pricing__card {
+      padding: 32px 24px 28px;
+    }
+
+    .kc-pricing__card--featured {
+      padding-top: 40px;
+      padding-bottom: 32px;
+    }
+
+    .kc-pricing__price {
+      font-size: 40px;
+    }
+
+    .kc-pricing__title {
+      font-size: 24px;
+    }
+
+    .kc-pricing__trust {
+      gap: 20px;
+      margin-top: 36px;
+    }
+
+    .kc-pricing__trust-item {
+      font-size: 13px;
+    }
+  }
+</style>
+
+<section class="kc-pricing" id="pricing" data-section-id="{{ section.id }}">
+  <div class="kc-pricing__inner">
+    {%- comment -%} Header {%- endcomment -%}
+    <div class="kc-pricing__header">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="kc-pricing__heading">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+
+      {%- if section.settings.subheading != blank -%}
+        <p class="kc-pricing__subheading">{{ section.settings.subheading }}</p>
+      {%- endif -%}
+    </div>
+
+    {%- comment -%} Pricing Cards {%- endcomment -%}
+    <div class="kc-pricing__grid">
+      {%- for block in section.blocks -%}
+        {%- assign is_featured = block.settings.is_featured -%}
+        <div
+          class="kc-pricing__card{% if is_featured %} kc-pricing__card--featured{% endif %}"
+          {{ block.shopify_attributes }}
+        >
+          {%- comment -%} Badge {%- endcomment -%}
+          {%- if block.settings.badge != blank -%}
+            <span class="kc-pricing__badge">{{ block.settings.badge }}</span>
+          {%- endif -%}
+
+          {%- comment -%} Title & Subtitle {%- endcomment -%}
+          {%- if block.settings.title != blank -%}
+            <h3 class="kc-pricing__title">{{ block.settings.title }}</h3>
+          {%- endif -%}
+
+          {%- if block.settings.subtitle != blank -%}
+            <p class="kc-pricing__subtitle">{{ block.settings.subtitle }}</p>
+          {%- endif -%}
+
+          <hr class="kc-pricing__divider">
+
+          {%- comment -%} Price {%- endcomment -%}
+          <div class="kc-pricing__price-block">
+            {%- if block.settings.price != blank -%}
+              <span class="kc-pricing__price">{{ block.settings.price }}</span>
+            {%- endif -%}
+
+            {%- if block.settings.compare_at_price != blank -%}
+              <span class="kc-pricing__compare-price">{{ block.settings.compare_at_price }}</span>
+            {%- endif -%}
+          </div>
+
+          {%- comment -%} Per bottle {%- endcomment -%}
+          {%- if block.settings.per_bottle_price != blank -%}
+            <p class="kc-pricing__per-bottle">{{ block.settings.per_bottle_price }}</p>
+          {%- endif -%}
+
+          {%- comment -%} Savings {%- endcomment -%}
+          {%- if block.settings.savings != blank -%}
+            <span class="kc-pricing__savings">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+              {{ block.settings.savings }}
+            </span>
+          {%- endif -%}
+
+          {%- comment -%} Features {%- endcomment -%}
+          {%- if block.settings.features != blank -%}
+            {%- assign features = block.settings.features | split: '
+' -%}
+            <ul class="kc-pricing__features">
+              {%- for feature in features -%}
+                {%- assign trimmed_feature = feature | strip -%}
+                {%- if trimmed_feature != blank -%}
+                  <li class="kc-pricing__feature">
+                    <span class="kc-pricing__feature-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                    </span>
+                    {{ trimmed_feature }}
+                  </li>
+                {%- endif -%}
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+
+          {%- comment -%} CTA Button {%- endcomment -%}
+          {%- if block.settings.button_text != blank -%}
+            <a
+              href="{{ block.settings.button_url | default: '#' }}"
+              class="kc-pricing__btn"
+            >
+              {{ block.settings.button_text }}
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+
+    {%- comment -%} Trust bar {%- endcomment -%}
+    {%- if section.settings.show_trust_bar -%}
+      <div class="kc-pricing__trust">
+        <div class="kc-pricing__trust-item">
+          <svg class="kc-pricing__trust-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h2a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-2"/><line x1="5" y1="8" x2="12" y2="8"/><line x1="5" y1="12" x2="10" y2="12"/></svg>
+          Free Shipping
+        </div>
+        <div class="kc-pricing__trust-item">
+          <svg class="kc-pricing__trust-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          90-Day Guarantee
+        </div>
+        <div class="kc-pricing__trust-item">
+          <svg class="kc-pricing__trust-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="m9 12 2 2 4-4"/></svg>
+          Doctor Formulated
+        </div>
+        <div class="kc-pricing__trust-item">
+          <svg class="kc-pricing__trust-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          12,000+ Happy Customers
+        </div>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "KC Pricing",
+  "tag": "section",
+  "class": "kc-section-pricing",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Section heading",
+      "default": "Choose Your Treatment Plan"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Section subheading",
+      "default": "Every order includes free shipping and our 90-day guarantee"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_trust_bar",
+      "label": "Show trust bar below pricing",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#F5FAFA"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#0B4F52"
+    },
+    {
+      "type": "color",
+      "id": "subheading_color",
+      "label": "Subheading color",
+      "default": "#6B7280"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "pricing_tier",
+      "name": "Pricing Tier",
+      "settings": [
+        {
+          "type": "text",
+          "id": "badge",
+          "label": "Badge text",
+          "default": "STARTER"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "2 Bottles"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subtitle",
+          "default": "60 Day Supply"
+        },
+        {
+          "type": "text",
+          "id": "price",
+          "label": "Price",
+          "default": "$158"
+        },
+        {
+          "type": "text",
+          "id": "compare_at_price",
+          "label": "Compare at price",
+          "default": "$358"
+        },
+        {
+          "type": "text",
+          "id": "per_bottle_price",
+          "label": "Per bottle price",
+          "default": "$79/bottle"
+        },
+        {
+          "type": "text",
+          "id": "savings",
+          "label": "Savings text",
+          "default": "Save $200"
+        },
+        {
+          "type": "textarea",
+          "id": "features",
+          "label": "Features (one per line)",
+          "default": "Free shipping\n90-day guarantee\nFull treatment guide"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button text",
+          "default": "Add to Cart"
+        },
+        {
+          "type": "url",
+          "id": "button_url",
+          "label": "Button link",
+          "info": "Link to the cart add URL for this variant, e.g. /cart/add?id=VARIANT_ID"
+        },
+        {
+          "type": "checkbox",
+          "id": "is_featured",
+          "label": "Featured tier (visually elevated)",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "KC Pricing",
+      "blocks": [
+        {
+          "type": "pricing_tier",
+          "settings": {
+            "badge": "STARTER",
+            "title": "2 Bottles",
+            "subtitle": "60 Day Supply",
+            "price": "$158",
+            "compare_at_price": "$358",
+            "per_bottle_price": "$79/bottle",
+            "savings": "Save $200",
+            "features": "Free shipping\n90-day guarantee\nFull treatment guide",
+            "button_text": "Add to Cart",
+            "is_featured": false
+          }
+        },
+        {
+          "type": "pricing_tier",
+          "settings": {
+            "badge": "MOST POPULAR",
+            "title": "3 Bottles",
+            "subtitle": "90 Day Supply",
+            "price": "$207",
+            "compare_at_price": "$537",
+            "per_bottle_price": "$69/bottle",
+            "savings": "Save $330",
+            "features": "Free shipping\n90-day guarantee\nFull treatment guide\nPriority support",
+            "button_text": "Add to Cart — Best Value",
+            "is_featured": true
+          }
+        },
+        {
+          "type": "pricing_tier",
+          "settings": {
+            "badge": "BEST VALUE",
+            "title": "6 Bottles",
+            "subtitle": "180 Day Supply",
+            "price": "$294",
+            "compare_at_price": "$1,074",
+            "per_bottle_price": "$49/bottle",
+            "savings": "Save $780",
+            "features": "Free shipping\n90-day guarantee\nFull treatment guide\nPriority support\nFree nail care kit",
+            "button_text": "Add to Cart — Maximum Savings",
+            "is_featured": false
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,43 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "current": {
+    "color_schemes": {
+      "scheme-1": {
+        "settings": {
+          "background": "#FFFFFF",
+          "background_gradient": "",
+          "text": "#1A1A1A",
+          "button": "#2E7D32",
+          "button_label": "#FFFFFF",
+          "secondary_button_label": "#2E7D32",
+          "shadow": "#1A1A1A"
+        }
+      }
+    },
+    "type_header_font": "playfair_display_n7",
+    "heading_scale": 100,
+    "type_body_font": "assistant_n4",
+    "body_scale": 100,
+    "page_width": 1200,
+    "spacing_sections": 0,
+    "animations_reveal_on_scroll": false,
+    "animations_hover_elements": "none",
+    "buttons_radius": 8,
+    "buttons_border_thickness": 0,
+    "buttons_border_opacity": 0,
+    "buttons_shadow_opacity": 0,
+    "cart_type": "notification",
+    "show_vendor": false,
+    "show_cart_note": false,
+    "currency_code_enabled": true,
+    "predictive_search_enabled": false
+  }
+}

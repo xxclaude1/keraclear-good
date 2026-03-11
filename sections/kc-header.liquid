@@ -1,0 +1,180 @@
+<style>
+  .kc-header {
+    background: {{ section.settings.bg_color }};
+    padding: 16px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+  .kc-header__inner {
+    max-width: var(--kc-max-width);
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .kc-header__logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+  .kc-header__logo img {
+    height: 40px;
+    width: auto;
+  }
+  .kc-header__logo-text {
+    font-family: var(--kc-font-heading);
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--kc-teal);
+  }
+  .kc-header__nav {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+  }
+  .kc-header__link {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--kc-black);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .kc-header__link:hover {
+    color: var(--kc-teal);
+  }
+  .kc-header__cta {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 24px;
+    background: var(--kc-teal);
+    color: #fff;
+    font-weight: 600;
+    font-size: 15px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .kc-header__cta:hover {
+    background: var(--kc-teal-dark);
+    color: #fff;
+  }
+  .kc-header__mobile-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+  }
+  .kc-header__mobile-toggle svg {
+    width: 24px;
+    height: 24px;
+    stroke: var(--kc-black);
+  }
+  @media (max-width: 768px) {
+    .kc-header__nav {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: #fff;
+      flex-direction: column;
+      padding: 20px;
+      gap: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .kc-header__nav.is-open {
+      display: flex;
+    }
+    .kc-header__mobile-toggle {
+      display: block;
+    }
+  }
+</style>
+
+<header class="kc-header" data-section-id="{{ section.id }}">
+  <div class="kc-header__inner">
+    <a href="/" class="kc-header__logo">
+      {%- if section.settings.logo != blank -%}
+        <img src="{{ section.settings.logo | image_url: height: 80 }}" alt="{{ shop.name }}" loading="eager">
+      {%- else -%}
+        <span class="kc-header__logo-text">{{ section.settings.logo_text }}</span>
+      {%- endif -%}
+    </a>
+
+    <button class="kc-header__mobile-toggle" aria-label="Menu" onclick="this.nextElementSibling.classList.toggle('is-open')">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+
+    <nav class="kc-header__nav">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'link' -%}
+          <a href="{{ block.settings.url }}" class="kc-header__link">{{ block.settings.label }}</a>
+        {%- endif -%}
+      {%- endfor -%}
+      {%- if section.settings.cta_text != blank -%}
+        <a href="{{ section.settings.cta_url }}" class="kc-header__cta">{{ section.settings.cta_text }}</a>
+      {%- endif -%}
+    </nav>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "class": "kc-header-section",
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo image"
+    },
+    {
+      "type": "text",
+      "id": "logo_text",
+      "label": "Logo text (if no image)",
+      "default": "KeraClear"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "CTA button text",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "CTA button link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "link",
+      "name": "Nav link",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Link"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "URL"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

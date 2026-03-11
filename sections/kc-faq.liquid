@@ -1,0 +1,300 @@
+{% style %}
+  .kc-faq {
+    padding: 80px 20px;
+    background: var(--kc-white, #FFFFFF);
+  }
+
+  .kc-faq__inner {
+    max-width: var(--kc-max-width, 1200px);
+    margin: 0 auto;
+  }
+
+  .kc-faq__heading {
+    font-family: var(--kc-font-heading, 'Playfair Display', serif);
+    font-size: 42px;
+    font-weight: 700;
+    color: var(--kc-black, #1A1A1A);
+    text-align: center;
+    margin: 0 0 48px 0;
+    line-height: 1.2;
+  }
+
+  .kc-faq__list {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .kc-faq__item {
+    background: var(--kc-white, #FFFFFF);
+    border: 1px solid #E5E7EB;
+    border-radius: var(--kc-radius, 12px);
+    overflow: hidden;
+    transition: box-shadow 0.3s ease;
+  }
+
+  .kc-faq__item:hover {
+    box-shadow: var(--kc-shadow, 0 4px 24px rgba(13, 115, 119, 0.08));
+  }
+
+  .kc-faq__question {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 24px 28px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    font-family: var(--kc-font-body, 'Inter', sans-serif);
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--kc-black, #1A1A1A);
+    line-height: 1.4;
+    transition: color 0.2s ease;
+  }
+
+  .kc-faq__question:hover {
+    color: var(--kc-teal, #0D7377);
+  }
+
+  .kc-faq__question:focus-visible {
+    outline: 2px solid var(--kc-teal, #0D7377);
+    outline-offset: -2px;
+    border-radius: var(--kc-radius, 12px);
+  }
+
+  .kc-faq__icon {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--kc-teal-light, #E8F4F4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease, transform 0.3s ease;
+  }
+
+  .kc-faq__item.is-open .kc-faq__icon {
+    background: var(--kc-teal, #0D7377);
+    transform: rotate(45deg);
+  }
+
+  .kc-faq__icon svg {
+    width: 14px;
+    height: 14px;
+    stroke: var(--kc-teal, #0D7377);
+    transition: stroke 0.3s ease;
+  }
+
+  .kc-faq__item.is-open .kc-faq__icon svg {
+    stroke: var(--kc-white, #FFFFFF);
+  }
+
+  .kc-faq__answer-wrapper {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+  }
+
+  .kc-faq__answer {
+    padding: 0 28px 24px 28px;
+    font-family: var(--kc-font-body, 'Inter', sans-serif);
+    font-size: 15px;
+    font-weight: 400;
+    color: var(--kc-gray, #6B7280);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    .kc-faq {
+      padding: 56px 16px;
+    }
+
+    .kc-faq__heading {
+      font-size: 30px;
+      margin-bottom: 36px;
+    }
+
+    .kc-faq__question {
+      padding: 20px 20px;
+      font-size: 15px;
+    }
+
+    .kc-faq__answer {
+      padding: 0 20px 20px 20px;
+      font-size: 14px;
+    }
+
+    .kc-faq__icon {
+      width: 24px;
+      height: 24px;
+    }
+
+    .kc-faq__icon svg {
+      width: 12px;
+      height: 12px;
+    }
+  }
+{% endstyle %}
+
+<section class="kc-faq" id="faq">
+  <div class="kc-faq__inner">
+    {% if section.settings.heading != blank %}
+      <h2 class="kc-faq__heading">{{ section.settings.heading }}</h2>
+    {% endif %}
+
+    {% if section.blocks.size > 0 %}
+      <div class="kc-faq__list">
+        {% for block in section.blocks %}
+          <div class="kc-faq__item" {{ block.shopify_attributes }}>
+            <button
+              class="kc-faq__question"
+              type="button"
+              aria-expanded="false"
+              aria-controls="kc-faq-answer-{{ block.id }}"
+            >
+              <span>{{ block.settings.question }}</span>
+              <span class="kc-faq__icon" aria-hidden="true">
+                <svg viewBox="0 0 14 14" fill="none" stroke-width="2" stroke-linecap="round">
+                  <line x1="7" y1="1" x2="7" y2="13" />
+                  <line x1="1" y1="7" x2="13" y2="7" />
+                </svg>
+              </span>
+            </button>
+            <div class="kc-faq__answer-wrapper" id="kc-faq-answer-{{ block.id }}">
+              <p class="kc-faq__answer">{{ block.settings.answer }}</p>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var section = document.querySelector('.kc-faq');
+    if (!section) return;
+
+    section.addEventListener('click', function (e) {
+      var button = e.target.closest('.kc-faq__question');
+      if (!button) return;
+
+      var item = button.closest('.kc-faq__item');
+      var wrapper = item.querySelector('.kc-faq__answer-wrapper');
+      var isOpen = item.classList.contains('is-open');
+
+      if (isOpen) {
+        wrapper.style.maxHeight = wrapper.scrollHeight + 'px';
+        requestAnimationFrame(function () {
+          wrapper.style.maxHeight = '0px';
+        });
+        item.classList.remove('is-open');
+        button.setAttribute('aria-expanded', 'false');
+      } else {
+        wrapper.style.maxHeight = wrapper.scrollHeight + 'px';
+        item.classList.add('is-open');
+        button.setAttribute('aria-expanded', 'true');
+
+        wrapper.addEventListener('transitionend', function handler() {
+          if (item.classList.contains('is-open')) {
+            wrapper.style.maxHeight = 'none';
+          }
+          wrapper.removeEventListener('transitionend', handler);
+        });
+      }
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "KC FAQ",
+  "tag": "section",
+  "class": "kc-faq-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Section Heading",
+      "default": "Frequently Asked Questions"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "FAQ Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "Your question here"
+        },
+        {
+          "type": "textarea",
+          "id": "answer",
+          "label": "Answer",
+          "default": "Your answer here"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "KC FAQ",
+      "blocks": [
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "How long until I see results?",
+            "answer": "Most users notice visible improvement within 4-6 weeks of consistent daily use. Full results typically appear within 3-6 months as the new, healthy nail grows in."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Is KeraClear safe to use?",
+            "answer": "Yes. KeraClear is formulated with natural, clinically-studied ingredients and manufactured in an FDA-registered facility. There are no known serious side effects."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "How do I apply KeraClear?",
+            "answer": "Apply 2-3 drops directly to the affected nail once daily, preferably after showering when nails are clean. Allow 60 seconds to absorb before putting on socks or shoes."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Does the 90-day guarantee really work?",
+            "answer": "Absolutely. If you're not satisfied within 90 days, contact our support team for a full refund. No questions asked, no hoops to jump through."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can I use KeraClear with nail polish?",
+            "answer": "We recommend using KeraClear on bare nails for maximum absorption. If you wear polish, apply KeraClear for at least 30 minutes before applying polish."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Is this FDA approved?",
+            "answer": "KeraClear is manufactured in an FDA-registered facility and contains FDA-recognized antifungal ingredients. As a topical cosmetic product, it does not require individual FDA approval."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
